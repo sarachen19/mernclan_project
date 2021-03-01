@@ -3,7 +3,7 @@ import PersonalDetails from './PersonalDetails';
 import Experience from './Experience';
 import Project from './Project';
 import Education from './Education';
-import Success from './Success';
+//import Success from './Success';
 import Extras from './Extras';
 
 
@@ -180,18 +180,7 @@ const { step } = resumeFields;
                 </div>
             );
 
-        case 6:
-
-            return (
-                <div className="App pt-5 mt-5">
-                    <div className="container col-lg-8 mx-auto text-center">
-
-                        <Success />
-                    </div>
-                    <br />
-                </div>
-            );
-
+      
     } ;
 }
  

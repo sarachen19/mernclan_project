@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 const Education = (props) => {
 
@@ -96,7 +96,7 @@ const Education = (props) => {
                 </form>
 
             </div>
-        )
+        );
     
 }
 

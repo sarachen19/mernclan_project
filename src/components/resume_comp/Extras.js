@@ -12,7 +12,7 @@ const Extras = (props) =>{
     const formSubmit = (e) => {
         e.preventDefault();
         props.submitted();
-        props.nextStep();
+        //props.nextStep();
         
         const data = props.values;
 
@@ -25,7 +25,7 @@ const Extras = (props) =>{
 
 
    
-        const { values, handleChange } = this.props;
+        const { values, handleChange } = props;
         return (
             <div className="card animated fadeInLeft">
                 <div className="card-body">
@@ -67,7 +67,7 @@ const Extras = (props) =>{
                     <br />
                     <div className="container text-center">
                         <button type="button" className="btn btn-info" onClick={back}><i className="fas fa-angle-left mr-1"></i>Back</button>
-                        <button type="submit" className="btn btn-info">Download PDF<i className="fas fa-download ml-1"></i></button>
+                        <button type="submit" className="btn btn-info">Save</button>
                     </div>
                     <br />
                 </form>
