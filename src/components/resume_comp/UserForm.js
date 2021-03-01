@@ -153,7 +153,6 @@ const { step } = resumeFields;
                         <Education
                             values={resumeFields}
                             prevStep={prevStep}
-                            /*submitted={this.submitted}*/
                             nextStep={nextStep}
                             handleChange={handleChange}
                         />

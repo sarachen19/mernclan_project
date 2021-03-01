@@ -11,6 +11,7 @@ const Education = (props) => {
         e.preventDefault();
         props.nextStep();
     };
+
     const { values, handleChange } = props;
 
   
