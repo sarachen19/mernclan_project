@@ -28,6 +28,9 @@ const Header = () => {
           <NavLink className="nav-item nav-link" to="/job-application">
             Job Application
           </NavLink>
+          <NavLink className="nav-item nav-link" to="/Login">
+            Login
+          </NavLink>
             </ul>
             
           </div>
