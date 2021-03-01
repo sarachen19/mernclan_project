@@ -1,5 +1,6 @@
+import AllGroups from "./taskComponents/AllGroups";
 const Task = () => {
-    return (<h1>Task</h1>  );
-}
- 
+	return <AllGroups />;
+};
+
 export default Task;
