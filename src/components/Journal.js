@@ -1,5 +1,10 @@
+import AddJournal from '../components/journal/AddJournal';
+
 const Journal = () => {
-    return (  <h1>Journal</h1>);
+    return (  <div>
+        <h1>Journal</h1>
+        <AddJournal/>
+        </div>);
 }
  
 export default Journal;

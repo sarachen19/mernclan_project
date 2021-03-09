@@ -7,6 +7,9 @@ import Home from './Home';
 import Note from './Note';
 import Journal from './Journal';
 import Resume from './Resume';
+import EditJournal from '../components/journal/EditJournal';
+import DeleteJournal from '../components/journal/DeleteJournal';
+import NewJournal from '../components/journal/NewJournal';
 import NotFound from './notFound';
 import Task from './Task';
 import '../App.css';
@@ -29,6 +32,11 @@ function App() {
             <Route path="/job-application" component={JobApplication}></Route>
             <Route path="/not-found" component={NotFound}></Route>
             <Route path="/Login" component={Login}></Route>
+            
+            <Route path="/components/journal/EditJournal" component={EditJournal}></Route>
+            <Route path="/components/journal/DeleteJournal" component={DeleteJournal}></Route>
+            <Route path="/components/journal/NewJournal" component={NewJournal}></Route>
+           
             <Redirect from="/" to="/home" />
             <Redirect to="/not-found" />
           </Switch>
