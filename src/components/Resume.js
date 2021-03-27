@@ -1,16 +1,14 @@
 
-import UserForm from '../components/resume_comp/UserForm';
+import ManageResumeAction from '../components/resume_comp/ManageResumeAction';
+import ResumeListing from '../components/resume_comp/ResumeListing';
 
 const Resume = () => {
 
   return (  <div>
-    <div className="col-lg-8 mx-auto text-center mt-5">
-      <h1><b>Let's generate your Resume!</b></h1>
-      <p className="lead">Please provide accurate description</p>
-      <hr />
-    </div>  
-    <UserForm/>
-  </div>   );
+    <h1>Resume</h1>
+    <ManageResumeAction/>
+    <ResumeListing/>
+    </div>);
 }
  
 export default Resume;

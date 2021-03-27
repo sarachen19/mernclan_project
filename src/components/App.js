@@ -16,6 +16,8 @@ import '../App.css';
 import JobApplication from './JobApplication';
 import Login from './Login';
 import { Container } from 'react-bootstrap';
+import Register from './Register';
+import AddResume from './resume_comp/AddResume';
 
 function App() {
   return (
@@ -32,11 +34,11 @@ function App() {
             <Route path="/job-application" component={JobApplication}></Route>
             <Route path="/not-found" component={NotFound}></Route>
             <Route path="/Login" component={Login}></Route>
-            
+            <Route path="/Register" component={Register}></Route>
             <Route path="/components/journal/EditJournal" component={EditJournal}></Route>
             <Route path="/components/journal/DeleteJournal" component={DeleteJournal}></Route>
             <Route path="/components/journal/NewJournal" component={NewJournal}></Route>
-           
+            <Route path="/components/resume_comp/AddResume" component={AddResume}></Route>
             <Redirect from="/" to="/home" />
             <Redirect to="/not-found" />
           </Switch>
