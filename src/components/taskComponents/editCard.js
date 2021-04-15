@@ -191,7 +191,7 @@ class EditCard extends Component {
 	Checklists() {
 		const checklists = this.props.card.checklists;
 		return checklists.map((checklist, index1) => {
-			const ProgressBar = this.ProgessBar(checklist);
+			//const ProgressBar = this.ProgessBar(checklist);
 			return (
 				<div key={index1} className="div-u-gutter">
 					<div key={index1} className="d-flex">
@@ -199,8 +199,8 @@ class EditCard extends Component {
 							{checklist.checklistName}
 						</p>
 					</div>
-					{ProgressBar}
-					{checklist.todo.map((todo, index2) => {
+					{/* {ProgressBar} */}
+					{/* {checklist.todo.map((todo, index2) => {
 						return (
 							<div key={index2}>
 								<input
@@ -224,7 +224,7 @@ class EditCard extends Component {
 					<AddTodo
 						checklist={checklist}
 						onCardsChange={this.props.onCardsChange}
-					/>
+					/> */}
 				</div>
 			);
 		});
