@@ -39,7 +39,7 @@ class Card extends Component {
 		super(props);
 		this.state = {
 			currentCard: "", //card to be edited
-			currrenttempcard: "", //current card
+			currrenttempcard: this.props.card || "", //current card
 			edit: false, // true to show modal, false to hide
 			newCard: {
 				value: "",
@@ -54,6 +54,7 @@ class Card extends Component {
 			},
 			add: false || this.props.add,
 			showAddButton: false,
+			refresh: false,
 		};
 		this.popupEdit = this.popupEdit.bind(this);
 		this.handleEditUpdate = this.handleEditUpdate.bind(this);
@@ -265,9 +266,37 @@ class Card extends Component {
 				});
 		}
 	}
+
 	componentDidUpdate() {
 		this.displayCover(this.coverRef);
+
+		if (
+			this.state.currrenttempcard != undefined &&
+			this.props.card != undefined &&
+			this.state.currrenttempcard.labels !== this.props.card.labels
+		) {
+			this.state.currrenttempcard.labels = this.props.card.labels;
+			this.setState({ refresh: true });
+		}
+		// if (
+		// 	this.state.currrenttempcard != undefined &&
+		// 	this.props.card != undefined &&
+		// 	this.state.currrenttempcard.checklists.length !==
+		// 		this.props.card.checklists.length
+		// ) {
+		// 	var res = [];
+		// 	var tempcks = this.state.currrenttempcard.checklists;
+		// 	this.props.card.checklists.forEach((ckl) => {
+		// 		tempcks.forEach((tempck) => {
+		// 			if (tempck.id == ckl) res = [...res, tempck];
+		// 		});
+		// 	});
+		// 	this.state.currrenttempcard.checklists = res;
+		// 	// this.state.currrenttempcard.checklists = this.props.card.checklists;
+		// 	//this.setState({ refresh: true });
+		// }
 	}
+
 	render() {
 		const EditdPane = this.EditPane;
 		if (this.state.add) {
@@ -329,6 +358,7 @@ class Card extends Component {
 							card={this.state.currrenttempcard}
 							group={this.props.group}
 							onCardsChange={this.props.onCardsChange}
+							refresh={this.props.refresh}
 						/>
 					)}
 				</>

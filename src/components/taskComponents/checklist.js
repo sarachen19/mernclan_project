@@ -97,6 +97,7 @@ const Checklist = (props) => {
 			console.log(e.response.data.errors);
 		}
 		setaddChecklist(false);
+		props.refresh();
 	};
 	const onChange2 = (e) => {
 		setnewck(e.target.value);

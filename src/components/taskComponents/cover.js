@@ -20,9 +20,18 @@ class Cover extends Component {
 		this.setCoverColor = this.setCoverColor.bind(this);
 	}
 
-	setCoverImage(e) {}
+	setCoverImage(e) {
+		e.preventDefault();
+		let imageSrc = e.target.alt;
+		var card = this.props.card;
+		card.cover = imageSrc;
+		console.log(imageSrc);
+		this.props.onAddCovers(imageSrc);
+		this.props.onCardsChange();
+	}
 	setCoverColor(e) {
 		e.preventDefault();
+		console.log(e.target);
 	}
 	render() {
 		if (this.state.addCover) {
