@@ -18,6 +18,7 @@ import Login from './Login';
 import { Container } from 'react-bootstrap';
 import Register from './Register';
 import AddResume from './resume_comp/AddResume';
+import ResumeDetails from './resume_comp/ResumeDetails';
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
             <Route path="/task" component={Task}></Route>
             <Route path="/note" component={Note}></Route>
             <Route path="/journal" component={Journal}></Route>
+            <Route path="/resume/AddResume" component={AddResume}></Route>
+            <Route path="/resume/EditResume/:id" component={AddResume}></Route>
+            <Route path="/resume/:id" component={ResumeDetails}></Route>
             <Route path="/resume" component={Resume}></Route>
             <Route path="/job-application" component={JobApplication}></Route>
             <Route path="/not-found" component={NotFound}></Route>
@@ -38,7 +42,7 @@ function App() {
             <Route path="/components/journal/EditJournal" component={EditJournal}></Route>
             <Route path="/components/journal/DeleteJournal" component={DeleteJournal}></Route>
             <Route path="/components/journal/NewJournal" component={NewJournal}></Route>
-            <Route path="/components/resume_comp/AddResume" component={AddResume}></Route>
+            
             <Redirect from="/" to="/home" />
             <Redirect to="/not-found" />
           </Switch>
