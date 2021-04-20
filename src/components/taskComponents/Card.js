@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import OutsideClickHandler from "react-outside-click-handler";
 import "bootstrap/dist/css/bootstrap.min.css";
 import EditCard from "./editCard";
@@ -38,6 +39,7 @@ class Card extends Component {
 		super(props);
 		this.state = {
 			currentCard: "", //card to be edited
+			currrenttempcard: this.props.card || "", //current card
 			edit: false, // true to show modal, false to hide
 			newCard: {
 				value: "",
@@ -52,6 +54,7 @@ class Card extends Component {
 			},
 			add: false || this.props.add,
 			showAddButton: false,
+			refresh: false,
 		};
 		this.popupEdit = this.popupEdit.bind(this);
 		this.handleEditUpdate = this.handleEditUpdate.bind(this);
@@ -199,10 +202,101 @@ class Card extends Component {
 	deleteCard = () => {};
 	componentDidMount() {
 		this.displayCover(this.coverRef);
+		if (this.props.card != null) {
+			let config = {
+				headers: {
+					"Content-Type": "application/json",
+				},
+			};
+			let data = {
+				cardId: this.props.card.cardId,
+			};
+
+			var tempChecklists = [];
+			axios
+				.post("http://localhost:5000/api/task/checklist", data, config)
+				.then((response) => {
+					// console.log(response);
+					if (response.data != "") {
+						let temp = response.data;
+						temp.map((checklist, index) => {
+							let c = {
+								checklistName: checklist.checklistName,
+								todo: checklist.todos,
+								cardId: checklist.card,
+								id: checklist._id,
+							};
+							tempChecklists = [...tempChecklists, c];
+						});
+						let c = this.props.card;
+						if (c != undefined) {
+							this.setState({
+								currrenttempcard: {
+									value: c.value,
+									checklists: tempChecklists,
+									labels: c.labels,
+									dueDate: c.dueDate,
+									description: c.description,
+									comments: c.comments,
+									cover: c.cover,
+									attachment: c.attachment,
+									groupKey: c.groupKey,
+									cardId: c.cardId,
+								},
+							});
+						} else {
+						}
+					} else {
+						let c = this.props.card;
+						this.setState({
+							currrenttempcard: {
+								value: c.value,
+								checklists: [],
+								labels: c.labels,
+								dueDate: c.dueDate,
+								description: c.description,
+								comments: c.comments,
+								cover: c.cover,
+								attachment: c.attachment,
+								groupKey: c.groupKey,
+								cardId: c.cardId,
+							},
+						});
+					}
+				});
+		}
 	}
+
 	componentDidUpdate() {
 		this.displayCover(this.coverRef);
+
+		if (
+			this.state.currrenttempcard != undefined &&
+			this.props.card != undefined &&
+			this.state.currrenttempcard.labels !== this.props.card.labels
+		) {
+			this.state.currrenttempcard.labels = this.props.card.labels;
+			this.setState({ refresh: true });
+		}
+		// if (
+		// 	this.state.currrenttempcard != undefined &&
+		// 	this.props.card != undefined &&
+		// 	this.state.currrenttempcard.checklists.length !==
+		// 		this.props.card.checklists.length
+		// ) {
+		// 	var res = [];
+		// 	var tempcks = this.state.currrenttempcard.checklists;
+		// 	this.props.card.checklists.forEach((ckl) => {
+		// 		tempcks.forEach((tempck) => {
+		// 			if (tempck.id == ckl) res = [...res, tempck];
+		// 		});
+		// 	});
+		// 	this.state.currrenttempcard.checklists = res;
+		// 	// this.state.currrenttempcard.checklists = this.props.card.checklists;
+		// 	//this.setState({ refresh: true });
+		// }
 	}
+
 	render() {
 		const EditdPane = this.EditPane;
 		if (this.state.add) {
@@ -257,17 +351,14 @@ class Card extends Component {
 								title={this.props.card.description}
 							></span>
 						</div>
-
-						{this.props.card.checklists.map((checklist, index) => {
-							return <p>{checklist.checklistName}</p>;
-						})}
 					</div>
 					{this.state.edit && (
 						<EditCard
 							edit={this.handleEditUpdate}
-							card={this.state.currentCard}
+							card={this.state.currrenttempcard}
 							group={this.props.group}
 							onCardsChange={this.props.onCardsChange}
+							refresh={this.props.refresh}
 						/>
 					)}
 				</>

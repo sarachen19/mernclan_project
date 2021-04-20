@@ -21,6 +21,7 @@ import { cover_image_7 } from "./coverImages/cover_image_7";
 import { cover_image_8 } from "./coverImages/cover_image_8";
 import { cover_image_9 } from "./coverImages/cover_image_9";
 import { cover_image_10 } from "./coverImages/cover_image_10";
+import axios from "axios";
 
 class EditCard extends Component {
 	constructor(props) {
@@ -164,6 +165,7 @@ class EditCard extends Component {
 									card={this.props.card}
 									onCardsChange={this.props.onCardsChange}
 									onAddChecklists={this.onAddChecklists}
+									refresh={this.props.refresh}
 								/>
 							</Popover.Content>
 						</Popover>
@@ -191,7 +193,7 @@ class EditCard extends Component {
 	Checklists() {
 		const checklists = this.props.card.checklists;
 		return checklists.map((checklist, index1) => {
-			const ProgressBar = this.ProgessBar(checklist);
+			//const ProgressBar = this.ProgessBar(checklist);
 			return (
 				<div key={index1} className="div-u-gutter">
 					<div key={index1} className="d-flex">
@@ -199,8 +201,8 @@ class EditCard extends Component {
 							{checklist.checklistName}
 						</p>
 					</div>
-					{ProgressBar}
-					{checklist.todo.map((todo, index2) => {
+					{/* {ProgressBar} */}
+					{/* {checklist.todo.map((todo, index2) => {
 						return (
 							<div key={index2}>
 								<input
@@ -224,7 +226,7 @@ class EditCard extends Component {
 					<AddTodo
 						checklist={checklist}
 						onCardsChange={this.props.onCardsChange}
-					/>
+					/> */}
 				</div>
 			);
 		});
@@ -270,6 +272,7 @@ class EditCard extends Component {
 	}
 	onAddLabels() {
 		this.setState({ addLabels: false });
+		this.props.refresh();
 	}
 	Labels() {
 		return (
@@ -318,8 +321,22 @@ class EditCard extends Component {
 	addCover() {
 		this.setState({ addCover: !this.state.addCover });
 	}
-	onAddCovers() {
+	onAddCovers(imageSrc) {
 		this.setState({ addCover: true });
+		let config = {
+			headers: {
+				"Content-Type": "application/json",
+			},
+		};
+		let data = {
+			cardId: this.props.card.cardId,
+			cover: imageSrc,
+		};
+		axios
+			.put("http://localhost:5000/api/task/cover", data, config)
+			.then((response) => {
+				this.onAddLabels();
+			});
 	}
 	Covers() {
 		return (

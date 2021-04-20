@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
 
 class Label extends Component {
 	constructor(props) {
@@ -42,6 +43,36 @@ class Label extends Component {
 	}
 	editLabel(e) {
 		e.preventDefault();
+		let label = e.target;
+		if (label.innerHTML[0] === "<") {
+			label = label.parentElement.parentElement;
+		} else if (label.innerHTML[0] === undefined) {
+			label = label.parentElement.parentElement.parentElement;
+		}
+		const bgColor = label.className.split(" ")[3];
+		const labels = new Set(this.props.card.labels);
+		if (labels.has(bgColor)) {
+			labels.delete(bgColor);
+			label.firstElementChild.style.display = "none";
+		} else if (!labels.has(bgColor)) {
+			labels.add(bgColor);
+			label.firstElementChild.style.display = "inline-block";
+		}
+		let newLabels = Array.from(labels);
+		let config = {
+			headers: {
+				"Content-Type": "application/json",
+			},
+		};
+		let data = {
+			cardId: this.props.card.cardId,
+			labels: newLabels,
+		};
+		axios
+			.put("http://localhost:5000/api/task/label", data, config)
+			.then((response) => {
+				this.props.onAddLabels();
+			});
 	}
 	componentDidMount() {
 		if (this.state.addLabel) {

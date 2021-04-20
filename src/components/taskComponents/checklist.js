@@ -1,5 +1,7 @@
 import React, { userState, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+
 const Checklist = (props) => {
 	const [newChecklist, setnewChecklist] = useState({
 		//key: this.props.card.checklists.length,
@@ -7,8 +9,7 @@ const Checklist = (props) => {
 		todo: [],
 	});
 	const [addChecklist, setaddChecklist] = useState(props.addChecklist || false);
-	var checklistInput = React.createRef();
-
+	const [newck, setnewck] = useState("Checklist");
 	const ProgessBar = (checklist) => {
 		if (checklist.todo.length === 0) {
 			return null;
@@ -42,25 +43,64 @@ const Checklist = (props) => {
 			);
 		}
 	};
+
+	// const onCardsChange = (group, newCard) => {
+	// 	console.log(group);
+	// 	console.log(newCard);
+	// 	console.log("oncardschange function called in root");
+	// 	if (group != null) {
+	// 		let config = {
+	// 			headers: {
+	// 				"Content-Type": "application/json",
+	// 			},
+	// 		};
+
+	// 		let data = {
+	// 			groupId: group.groupId,
+	// 			value: newCard.value,
+	// 		};
+	// 		try {
+	// 			const response = axios.post(
+	// 				"http://localhost:5000/api/task/card/add",
+	// 				data,
+	// 				config
+	// 			);
+	// 			setRefresh(!refresh);
+	// 		} catch (e) {
+	// 			console.log(e.response.data.errors);
+	// 		}
+	// 	} else {
+	// 	}
+	// };
+
 	const handleAddChecklistSubmit = (e) => {
 		e.preventDefault();
-		setaddChecklist(false);
-	};
+		console.log(props.card.cardId);
+		console.log(newck);
+		let config = {
+			headers: {
+				"Content-Type": "application/json",
+			},
+		};
 
-	const AddChecklist = () => {
-		return (
-			<form onSubmit={handleAddChecklistSubmit} id="addChecklistForm">
-				<input
-					type="text"
-					placeholder="enter checklist name"
-					ref={checklistInput}
-					defaultValue="Checklist"
-				/>
-				<button className="btn btn-success btn-sm" type="submit">
-					Add
-				</button>
-			</form>
-		);
+		let data = {
+			cardId: props.card.cardId,
+			checklistName: newck,
+		};
+		try {
+			const response = axios.post(
+				"http://localhost:5000/api/task/checklist/add",
+				data,
+				config
+			);
+		} catch (e) {
+			console.log(e.response.data.errors);
+		}
+		setaddChecklist(false);
+		props.refresh();
+	};
+	const onChange2 = (e) => {
+		setnewck(e.target.value);
 	};
 	const toggleTodo = (e, checklist, oneTodo, todoIndex) => {
 		e.stopPropagation();
@@ -96,7 +136,19 @@ const Checklist = (props) => {
 	};
 
 	if (addChecklist) {
-		return <AddChecklist />;
+		return (
+			<form onSubmit={handleAddChecklistSubmit} id="addChecklistForm">
+				<input
+					type="text"
+					placeholder="enter checklist name"
+					defaultValue="Checklist"
+					onChange={(e) => onChange2(e)}
+				/>
+				<button className="btn btn-success btn-sm" type="submit">
+					Add
+				</button>
+			</form>
+		);
 	} else if (props.checklist !== undefined) {
 		return <Checklist2 />;
 	}
