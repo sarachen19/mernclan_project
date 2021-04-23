@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React , { useState, useCallback } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Footer from './footer';
 import Header from './header';
@@ -20,15 +20,25 @@ import Register from './Register';
 import AddResume from './resume_comp/AddResume';
 import ResumeDetails from './resume_comp/ResumeDetails';
 import AddEditJobApplications from './jobApplication/AddEditJobApplications';
+import AuthContext from '../contexts/AuthContext';
+
 
 
 function App() {
-  return (
-    <React.Fragment>
-      <Header />
-      <body>
-        <Container>
-          <Switch>
+
+  const [isLoggedIn, setIsLoggedIn] = useState('false');
+  const login = useCallback(() => {
+    setIsLoggedIn(true);
+  }, []);
+  const logout = useCallback(() => {
+    setIsLoggedIn(false);
+    sessionStorage.clear();
+  }, []);
+
+  let approutes;
+  if (isLoggedIn) {
+    approutes = (
+      <Switch>
             <Route path="/home" component={Home}></Route>
             <Route path="/task" component={Task}></Route>
             <Route path="/note" component={Note}></Route>
@@ -39,20 +49,39 @@ function App() {
             <Route path="/resume" component={Resume}></Route>
             <Route exact path="/job-application" component={JobApplication}></Route>
             <Route path="/job-application/:id" component={AddEditJobApplications}></Route>
-            <Route path="/not-found" component={NotFound}></Route>
-            <Route path="/Login" component={Login}></Route>
-            <Route path="/Register" component={Register}></Route>
             <Route path="/components/journal/EditJournal" component={EditJournal}></Route>
             <Route path="/components/journal/DeleteJournal" component={DeleteJournal}></Route>
             <Route path="/components/journal/NewJournal" component={NewJournal}></Route>
-            
+            <Route path="/not-found" component={NotFound}></Route>
             <Redirect from="/" to="/home" />
             <Redirect to="/not-found" />
           </Switch>
+    );
+  } else {
+    approutes = (
+      <Switch>
+            <Route path="/home" component={Home}></Route>
+            <Route path="/not-found" component={NotFound}></Route>
+            <Route path="/Login" component={Login}></Route>
+            <Route path="/Register" component={Register}></Route>
+            <Redirect from="/" to="/home" />
+            <Redirect to="/not-found" />
+          </Switch>
+    );
+  }
+
+  return (
+    <AuthContext.Provider value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}>
+    <React.Fragment>
+      <Header />
+      <body>
+        <Container>
+          {approutes}
         </Container>
       </body>
       <Footer />
     </React.Fragment>
+    </AuthContext.Provider>
   );
 }
 

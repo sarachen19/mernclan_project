@@ -3,9 +3,18 @@ import Pagination from "./common/pagination";
 import { paginate } from "./utils/paginate";
 import axios from 'axios';
 import ResumeTable from './ResumeTable';
+import apiService from '../apiService';
+import { API_Types_Enum } from "../DataConstants";
 
 const ResumeListing = () => {
   const [resumelist, setResumelists] = useState([]);
+
+//api validation code
+const [isResumeListLoad, setIsResumeListLoad] = useState(false);
+  const [errorResumeList, setErrorResumeList] = useState();
+
+  
+  const [errorResumeDel, setErrorResumeDel] = useState();
 
   const [pagesettings, setPageSetting] = useState(
     {currentpage: 1,
@@ -14,38 +23,39 @@ const ResumeListing = () => {
   );
 
   useEffect(() => {
-    let token = localStorage.getItem('token');
-    console.log(token);
-    let config = {
-            headers: {
-              'Content-Type': 'application/json',
-              'x-auth-token': token,
-            },
-          };
-    axios.get('http://localhost:5000/api/resume',config).then((response) => {
-      setResumelists(response.data);
-     // console.log(response);
-    });
+    setIsResumeListLoad(true);
+    apiService("/api/resume",
+      null,
+      API_Types_Enum.get_with_auth,
+      (response) => {
+        setResumelists(response["data"]);
+      setIsResumeListLoad(false);
+      setErrorResumeList(null);
+    },
+      (err) => {
+        console.log(err.response.data.msg);
+        setIsResumeListLoad(false);
+        setErrorResumeList(err.response.data.msg);
+      });
   }, []);
 
   const handleRemoveResume = async (idval) => {
-    let token = localStorage.getItem('token');
+   
+    apiService("/api/resume",
+    { id: idval },
+    API_Types_Enum.delete_with_auth,
+    (response) => {console.log(response);
+     
+      setErrorResumeDel(null);
+      console.log(resumelist);
+      const del = resumelist.filter(resume => idval !== resume._id)
+      setResumelists(del);
+    },
+    (err) => {
+      console.log(err.response);
     
-    try {
-            const response = await axios.delete(
-              'http://localhost:5000/api/resume',
-              { data: { id: idval },
-              headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': token,
-              } },
-              
-            );
-            console.log(response);
-            console.log(resumelist);
-          } catch (e) {
-            console.log(e.response.data.errors);
-          }
+      setErrorResumeDel(err.response.data);
+    });
   };
   const handlePageChange = (page) => {
     setPageSetting({ ...pagesettings,currentpage: page });
@@ -59,11 +69,18 @@ const ResumeListing = () => {
 
 
   
+  
+  
+  if (errorResumeList) return <div className="alert alert-danger">Error: {errorResumeList}</div>;
   if (count === 0) return <span>There are no resumes in the database</span>;
+ 
   const resumes = paginate(resumelist, currentpage, pageSize);
 
     return (  <div className="row">
         <div className="col">
+        {isResumeListLoad && <div className="alert alert-info "><strong>Loading...</strong></div>}
+        
+        {errorResumeDel && <div className="alert alert-danger">Error: {errorResumeDel}</div>}
           <span>User has {resumelist.length} resumes in the profile</span>
           <ResumeTable
             resume_detail={resumes}

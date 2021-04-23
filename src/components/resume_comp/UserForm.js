@@ -5,6 +5,8 @@ import Project from './Project';
 import Education from './Education';
 import axios from 'axios';
 import {Redirect } from "react-router-dom";
+import apiService from '../apiService';
+import { API_Types_Enum } from "../DataConstants";
 //import Success from './Success';
 import Extras from './Extras';
 
@@ -70,63 +72,48 @@ const UserForm = (props) => {
         if(formStatus !== undefined)
 {
     console.log(formStatus);
-        axios.get('http://localhost:5000/api/resume/'+formStatus).then((response) => {
-           
-        console.log(response.data);
-            setResumeFields({
-                step: 1,
-            name: response.data.name,
-            email: response.data.email,
-            phone: response.data.phone,
-            linkedin: response.data.linkedin,
-            github: response.data.github,
-            skills: response.data.skills,
-    
-            exp1_org: response.data.experience[0].organization,
-            exp1_pos: response.data.experience[0].position,
-            exp1_desc: response.data.experience[0].description,
-            exp1_dur: response.data.experience[0].duration,
-    
-            exp2_org: response.data.experience[1].organization,
-            exp2_pos: response.data.experience[1].position,
-            exp2_desc: response.data.experience[1].description,
-            exp2_dur: response.data.experience[1].duration,
-    
-            proj1_title: response.data.project[0].title,
-            proj1_link: response.data.project[0].link,
-            proj1_desc:response.data.project[0].description,
-    
-            proj2_title: response.data.project[1].title,
-            proj2_link: response.data.project[1].link,
-            proj2_desc: response.data.project[1].description,
-    
-            edu1_school: response.data.education[0].school,
-            edu1_year: response.data.education[0].year,
-            edu1_qualification: response.data.education[0].qualification,
-            edu1_desc: response.data.education[0].description,
-    
-            edu2_school: response.data.education[1].school,
-            edu2_year: response.data.education[1].year,
-            edu2_qualification: response.data.education[1].qualification,
-            edu2_desc: response.data.education[1].description,
-            
-            extra_1: response.data.extra[0].title,
-            extra_2: response.data.extra[1].title,
-            extra_3: response.data.extra[2].title,
-            extra_4: response.data.extra[3].title,
-            extra_5: response.data.extra[4].title,
-    
-    
-            status: 0,
-            id:response.data._id
-              });
-            // setResumeFields({
-            //     ...resumeFields,
-            //     step: step ,
-            //     status:status
-            // });
-         // console.log(response);
-        });
+apiService("/api/resume/"+formStatus,
+      null,
+      API_Types_Enum.get,
+      (response) => setResumeFields({
+        step: 1,
+    name: response.data.name,
+    email: response.data.email,
+    phone: response.data.phone,
+    linkedin: response.data.linkedin,
+    github: response.data.github,
+    skills: response.data.skills,
+    exp1_org: response.data.experience[0].organization,
+    exp1_pos: response.data.experience[0].position,
+    exp1_desc: response.data.experience[0].description,
+    exp1_dur: response.data.experience[0].duration,
+    exp2_org: response.data.experience[1].organization,
+    exp2_pos: response.data.experience[1].position,
+    exp2_desc: response.data.experience[1].description,
+    exp2_dur: response.data.experience[1].duration,
+    proj1_title: response.data.project[0].title,
+    proj1_link: response.data.project[0].link,
+    proj1_desc:response.data.project[0].description,
+    proj2_title: response.data.project[1].title,
+    proj2_link: response.data.project[1].link,
+    proj2_desc: response.data.project[1].description,
+    edu1_school: response.data.education[0].school,
+    edu1_year: response.data.education[0].year,
+    edu1_qualification: response.data.education[0].qualification,
+    edu1_desc: response.data.education[0].description,
+    edu2_school: response.data.education[1].school,
+    edu2_year: response.data.education[1].year,
+    edu2_qualification: response.data.education[1].qualification,
+    edu2_desc: response.data.education[1].description,
+    extra_1: response.data.extra[0].title,
+    extra_2: response.data.extra[1].title,
+    extra_3: response.data.extra[2].title,
+    extra_4: response.data.extra[3].title,
+    extra_5: response.data.extra[4].title,
+    status: 0,
+    id:response.data._id
+      }),
+      (err) => console.log(err));
     }
       }, []);
 
@@ -161,36 +148,30 @@ const UserForm = (props) => {
 
     
     const addResume = async(resumedata) => {
-        let token = localStorage.getItem('token');
-    let config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': token,
-      },
-    };
+  
 
     let data = resumedata;
     try {
         if(resumeFields.id)
         {
-            const response = await axios.put(
-                'http://localhost:5000/api/resume',
-                data,
-                config
-              );
-              console.log('resume updated');
+            apiService("/api/resume",
+            data,
+                API_Types_Enum.put_with_auth,
+                (response) => {console.log('resume updated');
+                setRedirect(true)},
+                (err) => console.log(err));
+            
         }else{
-            const response = await axios.post(
-                'http://localhost:5000/api/resume',
-                data,
-                config
-              );
-        
-              console.log('resume added');
+            apiService("/api/resume",
+            data,
+                API_Types_Enum.post_with_auth,
+                (response) => {console.log('resume added');
+                setRedirect(true)},
+                (err) => console.log(err));
         }
             
               
-        setRedirect(true)
+        //setRedirect(true)
         console.log(resumedata);
       
     } catch (e) {

@@ -1,69 +1,96 @@
-import React, { useState } from "react";
+import React,{ useState } from "react";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./Login.css";
-import axios from 'axios';
 import decode from 'jwt-decode';
+import { useHistory } from "react-router-dom";
+import apiService from './apiService';
+import { API_Types_Enum } from "./DataConstants";
 
 const Register = () => {
-  const [registerData, setRegisterData] = useState({
-    name: '',
-    email: '',
-    password: '',
-   
+  const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+
+  const formik = useFormik({
+
+    initialValues: {
+
+      name: '',
+
+      email: '',
+
+      password: '',
+
+    },
+    validationSchema: Yup.object({
+
+      name: Yup.string()
+
+        .required('Required'),
+
+    
+
+      email: Yup.string().email('Invalid email address').required('Required'),
+      password: Yup.string()
+      .required('No password provided.') 
+      .min(8, 'Password is too short - should be 8 chars minimum.'),
+
+    }),
+    onSubmit: async(values) => {
+      setIsLoading(true);
+      apiService("/api/users",
+        {
+          name: values.name,
+        email: values.email,
+        password: values.password
+        },
+        API_Types_Enum.post,
+        (response) => {
+          sessionStorage.setItem("token", response.data['token']);
+       
+        let decodeduser = decode(response.data.token);
+       console.log(decodeduser);
+        setIsLoading(false);
+        setError(null);
+        history.push('/home');
+        },
+        (err) => {
+          setIsLoading(false);
+      
+        setError(err.response.data);
+        });
+
+
+      
+    // alert(JSON.stringify(values, null, 2));
+
+    },
+
   });
-   
-  const { name, email, password } = registerData;
-  const onChangeValue = (e) =>
-  setRegisterData({ ...registerData, [e.target.name]: e.target.value });
-
-  const handleRegister  = async (e) => {
-    e.preventDefault();
-
-    let config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    let data = {
-      name: name,
-      email: email,
-      password: password,
-    };
-    try {
-      const response = await axios.post(
-        //'http://localhost:5000/api/user',
-        'http://localhost:5000/api/users',
-        data,
-        config
-      );
-      localStorage.setItem('token', response.data.token);
-     
-      let decodeduser = decode(response.data.token);
-      console.log('user added successfully');
-      console.log(decodeduser);
-    } catch (e) {
-      console.log('error ', e);
-    }
-  };
-  function validateForm() {
-    return email.length > 0 && password.length > 0 && name.length > 0;
-  }
-
  
 
   return (
     <div className="Login">
-      <Form onSubmit={handleRegister}>
+      {isLoading && <div className="alert alert-info regLabel"><strong>Loading...</strong></div>}
+      
+      <Form onSubmit={formik.handleSubmit}>
       <Form.Group size="lg" controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
             autoFocus
             type="text"
             name='name'
-            value={name}
-            onChange={(e) => onChangeValue(e)}
+            onChange={formik.handleChange}
+         value={formik.values.name}
           />
+          {formik.touched.name && formik.errors.name ? (
+
+<div className="error-msg">{formik.errors.name}</div>
+
+) : null}
         </Form.Group>
         <Form.Group size="lg" controlId="email">
           <Form.Label>Email</Form.Label>
@@ -71,24 +98,36 @@ const Register = () => {
             autoFocus
             type="email"
             name='email'
-            value={email}
-            onChange={(e) => onChangeValue(e)}
+            onChange={formik.handleChange}
+         value={formik.values.email}
           />
+          {formik.touched.email && formik.errors.email ? (
+
+<div className="error-msg">{formik.errors.email}</div>
+
+) : null}
         </Form.Group>
         <Form.Group size="lg" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             name='password'
-            value={password}
-            minLength='5'
-            onChange={(e) => onChangeValue(e)}
+           
+            
+            onChange={formik.handleChange}
+         value={formik.values.password}
           />
+          {formik.touched.password && formik.errors.password ? (
+
+<div className="error-msg">{formik.errors.password}</div>
+
+) : null}
         </Form.Group>
-        <Button block size="lg" type="submit" disabled={!validateForm()}>
+        <Button block size="lg" type="submit">
           Register
         </Button>
       </Form>
+      {error && <div className="alert alert-danger regLabel">{error}</div>}
     </div>
   );
 }

@@ -3,8 +3,13 @@
     padding: 60px 0;
   }
 
-  .Login form {
+  .Login form,
+  .regLabel {
     margin: 0 auto;
     max-width: 320px;
+  }
+
+  .error-msg {
+    color: red;
   }
 }

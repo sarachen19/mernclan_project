@@ -3,6 +3,13 @@ import { API_Types_Enum, backendURL } from './DataConstants';
 
 const apiService = (callURL, apiData, apiType, successCallBack, failCallBack) => {
     switch (apiType) {
+        case API_Types_Enum.get:
+            axios.get(backendURL + callURL).then(response => {
+                successCallBack(response);
+            }).catch(error => {
+                failCallBack(error);
+            });
+            break;
         case API_Types_Enum.get_with_auth:
             axios.get(backendURL + callURL, {
                 headers: {
@@ -43,6 +50,18 @@ const apiService = (callURL, apiData, apiType, successCallBack, failCallBack) =>
                 failCallBack(error);
             });
             break;
+        case API_Types_Enum.delete_with_auth:
+            axios.delete(backendURL + callURL,  {
+                data: apiData,
+                headers: {
+                    "x-auth-token": sessionStorage.getItem('token')
+                }
+            }).then(response => {
+                successCallBack(response);
+            }).catch(error => {
+                failCallBack(error);
+            });
+            break;    
         case "delete":
 
             break;
