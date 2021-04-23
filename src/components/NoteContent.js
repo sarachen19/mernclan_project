@@ -94,7 +94,7 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
         }
 
           const response =  await axios.put(      
-          'http://localhost:5000/api/note',
+          'https://mern-clan.herokuapp.com/api/note',
           data,
           config     
         );
@@ -102,7 +102,7 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
       }
       else{
         const response = await axios.post(      
-          'http://localhost:5000/api/note',
+          'https://mern-clan.herokuapp.com/api/note',
           data,
           config     
         ); 
@@ -121,7 +121,7 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
     // useCallback(() => {
     //   setActiveNote(!activeNote);
     // })
-    axios.get('http://localhost:5000/api/note').then((response) => {
+    axios.get('https://mern-clan.herokuapp.com/api/note').then((response) => {
       response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
       setNotes(response.data);
       

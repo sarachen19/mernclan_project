@@ -5,13 +5,25 @@ import NoteSidebar from './NoteSidebar' ;
 import NoteContent from './NoteContent';
 import uuid from 'react-uuid';
 import axios from 'axios';
+import apiService from './apiService';
+import { API_Types_Enum } from "./DataConstants";
+
 
 const Note = () => {
 
   const [notes,setNotes] = useState([]);
   const [test,setTest] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:5000/api/note').then((response) => {
+
+    // apiService("https://mern-clan.herokuapp.com/api/note",
+    //   null,
+    //   API_Types_Enum.get,
+    //   (response) => { response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
+    //     setNotes(response.data);
+    //     setTest(response.data);},
+    //   (err) => console.log(err));
+
+    axios.get('https://mern-clan.herokuapp.com/api/note').then((response) => {
       response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
       setNotes(response.data);
       setTest(response.data);
@@ -71,7 +83,7 @@ const Note = () => {
         console.log("Sandeep1234 printing id"+ noteId);
         try {
           const response = await axios.delete(
-            'http://localhost:5000/api/note',
+            'https://mern-clan.herokuapp.com/api/note',
             config
           );
           localStorage.setItem('token', token);
