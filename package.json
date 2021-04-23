@@ -35,11 +35,7 @@
     "react-scripts": "4.0.3",
     "react-uuid": "^1.0.2",
     "web-vitals": "^1.1.0",
-<<<<<<< Updated upstream
-    "yup": "^0.32.9",
-=======
     "yup": "^0.32.9"
->>>>>>> Stashed changes
   },
   "scripts": {
     "start": "react-scripts start",
