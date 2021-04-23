@@ -26,7 +26,7 @@ import AuthContext from '../contexts/AuthContext';
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState('false');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const login = useCallback(() => {
     setIsLoggedIn(true);
   }, []);
