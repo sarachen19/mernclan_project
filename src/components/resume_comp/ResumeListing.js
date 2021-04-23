@@ -5,6 +5,7 @@ import axios from 'axios';
 import ResumeTable from './ResumeTable';
 import apiService from '../apiService';
 import { API_Types_Enum } from "../DataConstants";
+import _ from 'lodash';
 
 const ResumeListing = () => {
   const [resumelist, setResumelists] = useState([]);
@@ -19,6 +20,11 @@ const [isResumeListLoad, setIsResumeListLoad] = useState(false);
   const [pagesettings, setPageSetting] = useState(
     {currentpage: 1,
       pageSize: 2,
+    }
+  );
+  const [sortsettings, setSortSetting] = useState(
+    {path:'name',
+      order: 'asc',
     }
   );
 
@@ -48,7 +54,8 @@ const [isResumeListLoad, setIsResumeListLoad] = useState(false);
      
       setErrorResumeDel(null);
       console.log(resumelist);
-      const del = resumelist.filter(resume => idval !== resume._id)
+      const del = resumelist.filter((resume) => resume._id !== idval);
+      
       setResumelists(del);
     },
     (err) => {
@@ -61,20 +68,31 @@ const [isResumeListLoad, setIsResumeListLoad] = useState(false);
     setPageSetting({ ...pagesettings,currentpage: page });
   };
 
+  const handleSort = sortColumn => {
+    
+    setSortSetting(sortColumn);
+  };
+
   const { length: count} = resumelist;
   const {
     pageSize,
     currentpage,
   } = pagesettings;
 
+  const {
+    path,
+    order,
+  } = sortsettings;
 
   
   
   
   if (errorResumeList) return <div className="alert alert-danger">Error: {errorResumeList}</div>;
   if (count === 0) return <span>There are no resumes in the database</span>;
+
+  const sorted = _.orderBy(resumelist,[path],[order])
  
-  const resumes = paginate(resumelist, currentpage, pageSize);
+  const resumes = paginate(sorted, currentpage, pageSize);
 
     return (  <div className="row">
         <div className="col">
@@ -84,7 +102,9 @@ const [isResumeListLoad, setIsResumeListLoad] = useState(false);
           <span>User has {resumelist.length} resumes in the profile</span>
           <ResumeTable
             resume_detail={resumes}
+            sortColumn={sortsettings}
             removeResume={handleRemoveResume}
+            onSort={handleSort}
           ></ResumeTable>
           <Pagination
             itemsCount={resumelist.length}
