@@ -1,5 +1,8 @@
 import React , { useState, useCallback } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import Footer from './footer';
+import Header from './header';
+import Home from './Home';
 import Note from './Note';
 import Journal from './Journal';
 import Resume from './Resume';
