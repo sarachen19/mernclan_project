@@ -130,10 +130,10 @@ const Sidebar = ({notes,onAddNote,onDeleteNote,activeNote,setActiveNote,setTextD
                   <button onClick={
                       () => {
                         onDeleteNote(note._id);
-                        refreshPage();
+                        
                       }}>Delete</button>
                   <button onClick={() => {setActiveNote(note._id);setTextDisabled(false)}}>Update</button>
-                  <button  onClick={() =>{ setActiveNote(note._id);setTextDisabled(true)}}>View</button>
+                  <button onClick={() =>{ setActiveNote(note._id);setTextDisabled(true)}}>View</button>
           </div>
           <p>{note.description && note.description.substr(0,100)+ "..."}</p>
           <small className ="note-meta">Lastmodified {new Date(note.date).toLocaleDateString("en-GB",{

@@ -1,10 +1,9 @@
-
 import ReactMarkdown from 'react-markdown';
 import React, { useState,useCallback } from 'react';
 import axios from 'axios';
 import TagsInput from './TagsInput';
 
-const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote, setNotes}) => {
+const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote, setNotes, setTest}) => {
   const [temp,setTemp] = useState([]);
   const [tag,setTag] = useState([]);
   
@@ -44,8 +43,8 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
   const OnSubmit2 = async (e) => {
     e.preventDefault();
     
-    let token = localStorage.getItem('token');
-    
+    let token = sessionStorage.getItem('token');
+    console.log("Tejal"+token);
     let config = {
       headers: {
         'Content-Type': 'application/json',
@@ -69,7 +68,8 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
     try {
       test.map(tes => {
        
-        
+        console.log("gguu"+tes._id);
+        console.log("gguu1"+activeNote._id);
         if(tes._id === activeNote._id){
         
           cat = true;            
@@ -88,11 +88,8 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
         if(data.title == ''){
           const r = test.find((note) => note._id === activeNote._id);
          
-          data.title = r.title;
-          
-          
+          data.title = r.title;                 
         }
-
           const response =  await axios.put(      
           'https://mern-clan.herokuapp.com/api/note',
           data,
@@ -124,6 +121,7 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
     axios.get('https://mern-clan.herokuapp.com/api/note').then((response) => {
       response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
       setNotes(response.data);
+      setTest(response.data);
       
     });
   };

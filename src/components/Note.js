@@ -58,6 +58,7 @@ const Note = () => {
     }
 
     setNotes([newNote,...notes]);
+    //setTest([newNote,...test]);
     console.log("Pranay1 printing notes.id"+ notes._id);
     console.log("Pranay1 printing notes.id"+ notes.title);
     console.log("Pranay1 printing notes.id"+ notes.date);
@@ -67,7 +68,7 @@ const Note = () => {
   const onDeleteNote = async (noteId) => {
     console.log("Sandeep12 printing id"+ noteId);
     //setNotes(notes.filter((eachNote) => eachNote.id!== note.id ));
-    let token = localStorage.getItem('token');
+    let token = sessionStorage.getItem('token');
         console.log("Sandeep printing"+ token);
         let config = {
           headers: {
@@ -86,11 +87,17 @@ const Note = () => {
             'https://mern-clan.herokuapp.com/api/note',
             config
           );
+          
           localStorage.setItem('token', token);
           console.log(response);
         } catch (e) {
           console.log('error ', e);
         }
+        axios.get('https://mern-clan.herokuapp.com/api/note').then((response) => {
+          response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
+          setNotes(response.data);
+          
+        });
       };
   
 
@@ -136,6 +143,7 @@ const Note = () => {
           activeNote ={ getActiveNote()} 
           onEditNote={onEditNote} 
           test={test} 
+          setTest={setTest}
           textDisabled = {textDisabled}
           setActiveNote = {setActiveNote}  
           setNotes = {setNotes}    
