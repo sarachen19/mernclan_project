@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Form from "react-bootstrap/Form";
 import Table from 'react-bootstrap/Table';
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
+import { API_Types_Enum } from './DataConstants';
+import apiService from './apiService';
 
-const RenderLineItem = (item, index, viewURL, tableHeaders) => {
-    
+const RenderLineItem = (item, index, viewURL, tableHeaders, deleteURL) => {
+
     let history = useHistory();
     let { _id, ...itemViewData } = item;
     let viewData = {};
     Object.keys(itemViewData).map(key => {
-        tableHeaders.map(heads=>{
+        tableHeaders.map(heads => {
             if (heads[key])
                 viewData[key] = itemViewData[key];
         })
@@ -20,8 +23,21 @@ const RenderLineItem = (item, index, viewURL, tableHeaders) => {
             <td>{index + 1}</td>
             {Object.entries(viewData).map(k => <td>{k[1]}</td>)}
             <td>
-                {viewURL ? <Button size="lg" onClick={() => { history.push(viewURL + _id); }}>
+                {viewURL ? <Button size="sm" onClick={() => { history.push(viewURL + _id); }}>
                     View
+                </Button> : null}
+            </td>
+            <td>
+                {deleteURL ? <Button size="sm" variant="danger" onClick={() => {
+                    apiService(deleteURL,
+                        {
+                            id: _id
+                        },
+                        API_Types_Enum.delete_with_auth,
+                        () => history.push(viewURL),
+                        (err) => console.log(err));
+                }}>
+                    Delete
                 </Button> : null}
             </td>
         </tr>
@@ -29,7 +45,10 @@ const RenderLineItem = (item, index, viewURL, tableHeaders) => {
 }
 
 const TableView = (props) => {
-    debugger;
+    const [search, setSearch] = useState('');
+    const filterData = () => {
+        props.datalist.filter((item) => !item);
+    }
     let history = useHistory();
     return (
         <React.Fragment>
@@ -38,7 +57,16 @@ const TableView = (props) => {
                     Add
                 </Button> : null
             }
-            <Table condensed hover>
+            <Form.Control
+                autoFocus
+                type="searchTable"
+                value={search}
+                onChange={(e) => { 
+                    filterData(); 
+                    setSearch(e.target.value);
+                 }}
+            />
+            <Table className="sortable" condensed hover>
                 <thead>
                     <tr>
                         <th></th>
@@ -46,7 +74,7 @@ const TableView = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.datalist.map((item, index) => RenderLineItem(item, index, props.addEditApplicationUrl, props.tableHeaders))}
+                    {props.datalist.map((item, index) => RenderLineItem(item, index, props.addEditApplicationUrl, props.tableHeaders, props.deleteURL))}
                 </tbody>
             </Table>
         </React.Fragment>

@@ -19,8 +19,22 @@ import { Container } from 'react-bootstrap';
 import Register from './Register';
 import AddResume from './resume_comp/AddResume';
 import AddEditJobApplications from './jobApplication/AddEditJobApplications';
+import firebase from 'firebase';
 
 function App() {
+  if (!firebase.apps.length) {
+    var firebaseConfig = {
+      apiKey: "AIzaSyChiUN39T4W8F-JO8-FfNvEYyItYdmixuE",
+      authDomain: "mern-2124a.firebaseapp.com",
+      projectId: "mern-2124a",
+      storageBucket: "mern-2124a.appspot.com",
+      messagingSenderId: "164568203749",
+      appId: "1:164568203749:web:eb2f9ba8fa947b85766f0c"
+    };
+    firebase.initializeApp(firebaseConfig);
+  } else {
+    firebase.app();
+  }
   return (
     <React.Fragment>
       <Header />

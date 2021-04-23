@@ -43,8 +43,15 @@ const apiService = (callURL, apiData, apiType, successCallBack, failCallBack) =>
                 failCallBack(error);
             });
             break;
-        case "delete":
-
+        case API_Types_Enum.delete_with_auth:
+            axios.delete(backendURL + callURL, {
+                headers: {
+                    "x-auth-token": sessionStorage.getItem('token')
+                },
+                data: apiData
+            }).then(response => {
+                successCallBack(response);
+            }).catch(err => failCallBack(err));
             break;
         default:
             break;

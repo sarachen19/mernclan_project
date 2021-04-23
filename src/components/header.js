@@ -2,18 +2,18 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 
 const Header = () => {
-    return ( <header>
-        <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <Link className="navbar-brand" to="/">
+  return (<header>
+    <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <Link className="navbar-brand" to="/">
         Noteworks
       </Link>
-          
-          <div className="collapse navbar-collapse" id="navbarCollapse">
-            <ul className="navbar-nav mr-auto">
-            <NavLink className="nav-item nav-link" to="/home">
+
+      <div className="collapse navbar-collapse" id="navbarCollapse">
+        <ul className="navbar-nav mr-auto">
+          <NavLink className="nav-item nav-link" to="/home">
             Home
           </NavLink>
-            <NavLink className="nav-item nav-link" to="/journal">
+          <NavLink className="nav-item nav-link" to="/journal">
             Journal
           </NavLink>
           <NavLink className="nav-item nav-link" to="/task">
@@ -28,17 +28,21 @@ const Header = () => {
           <NavLink className="nav-item nav-link" to="/job-application">
             Job Application
           </NavLink>
-          <NavLink className="nav-item nav-link" to="/Login">
-            Login
+          {
+            sessionStorage.getItem("token") == null ?
+              < React.Fragment >
+                <NavLink className="nav-item nav-link" to="/Login">
+                  Login
           </NavLink>
-          <NavLink className="nav-item nav-link" to="/Register">
-            Register
+                <NavLink className="nav-item nav-link" to="/Register">
+                  Register
           </NavLink>
-            </ul>
-            
-          </div>
-        </nav>
-      </header> );
+              </React.Fragment> : null}
+        </ul>
+
+      </div>
+    </nav>
+  </header >);
 }
- 
+
 export default Header;

@@ -13,6 +13,7 @@ const API_Types_Enum = Object.freeze({
 const backendURL = "https://mern-clan.herokuapp.com";
 const apiCallURLS = Object.freeze({
     "authentication": "/api/auth",
+    "register": "/api/users",
     "jobApplications": "/api/jobApplications"
 });
 
