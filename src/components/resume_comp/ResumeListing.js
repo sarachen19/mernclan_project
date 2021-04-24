@@ -19,7 +19,7 @@ const [isResumeListLoad, setIsResumeListLoad] = useState(false);
 
   const [pagesettings, setPageSetting] = useState(
     {currentpage: 1,
-      pageSize: 2,
+      pageSize: 3,
     }
   );
   const [sortsettings, setSortSetting] = useState(

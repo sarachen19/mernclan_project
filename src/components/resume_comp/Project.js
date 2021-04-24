@@ -44,7 +44,8 @@ const Project = (props) => {
                     <div className="row col-lg-10 mx-auto">
                         <div className="col-lg-12 text-left">
                             <label>Description*</label>
-                            <input type="text" name="proj1_desc" className="form-control" defaultValue={values.status === 1 ? '' : values.proj1_desc} onChange={handleChange} />
+                            <textarea name="proj1_desc" className="form-control" onChange={handleChange} defaultValue={values.status === 1 ? '' : values.proj1_desc} required></textarea>
+                            
                         </div>
                     </div>
 
@@ -70,7 +71,8 @@ const Project = (props) => {
                     <div className="row col-lg-10 mx-auto">
                         <div className="col-lg-12 text-left">
                             <label>Description*</label>
-                            <input type="text" name="proj2_desc" className="form-control" defaultValue={values.status === 1 ? '' : values.proj2_desc} onChange={handleChange} required />
+                            <textarea name="proj2_desc" className="form-control" onChange={handleChange} defaultValue={values.status === 1 ? '' : values.proj2_desc} required></textarea>
+                            
                         </div>
                     </div>
                     <br />

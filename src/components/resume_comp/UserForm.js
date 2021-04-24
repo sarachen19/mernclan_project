@@ -14,7 +14,8 @@ import Extras from './Extras';
 const UserForm = (props) => {
     const { formStatus } = props;
     const [isRedirect, setRedirect] = useState(false);
-    
+    const [isAddResLoading, setIsAddResLoading] = useState(false);
+    const [addReserror, setaddResError] = useState();
    
 
     const [resumeFields,setResumeFields]=useState(
@@ -154,20 +155,47 @@ apiService("/api/resume/"+formStatus,
     try {
         if(resumeFields.id)
         {
+            console.log(data);
+            setIsAddResLoading(true);
             apiService("/api/resume",
             data,
                 API_Types_Enum.put_with_auth,
                 (response) => {console.log('resume updated');
+                setIsAddResLoading(false);
+                setaddResError(null);
                 setRedirect(true)},
-                (err) => console.log(err));
+                (err) => {
+                    setIsAddResLoading(false);
+     
+      let error_message="";
+      err.response.data.errors.map((error)=> 
+(
+    error_message += error.msg+"\n"
+   
+ )
+)
+                    setaddResError(error_message);
+                });
             
         }else{
+            setIsAddResLoading(true);
             apiService("/api/resume",
             data,
                 API_Types_Enum.post_with_auth,
                 (response) => {console.log('resume added');
+                setIsAddResLoading(false);
+                setaddResError(null);
                 setRedirect(true)},
-                (err) => console.log(err));
+                (err) => {setIsAddResLoading(false);
+     
+      let error_message="";
+      err.response.data.errors.map((error)=> 
+(
+    error_message += error.msg+"\n"
+   
+ )
+)
+                    setaddResError(error_message);});
         }
             
               
@@ -198,7 +226,7 @@ const { step } = resumeFields;
         case 1:
             return (
                 <div className="App pt-5 mt-5">
-                    <div className="container col-lg-8 mx-auto text-center">
+                    <div className="container col-lg-10 mx-auto text-center">
 
                         <PersonalDetails
                             values={resumeFields}
@@ -214,7 +242,7 @@ const { step } = resumeFields;
 
             return (
                 <div className="App pt-5 mt-5">
-                    <div className="container col-lg-8 mx-auto text-center">
+                    <div className="container col-lg-10 mx-auto text-center">
 
                         <Experience
                             values={resumeFields}
@@ -231,7 +259,7 @@ const { step } = resumeFields;
 
             return (
                 <div className="App pt-5 mt-5">
-                    <div className="container col-lg-8 mx-auto text-center">
+                    <div className="container col-lg-10 mx-auto text-center">
 
                         <Project
                             values={resumeFields}
@@ -248,7 +276,7 @@ const { step } = resumeFields;
 
             return (
                 <div className="App pt-5 mt-5">
-                    <div className="container col-lg-8 mx-auto text-center">
+                    <div className="container col-lg-10 mx-auto text-center">
 
                         <Education
                             values={resumeFields}
@@ -266,8 +294,9 @@ const { step } = resumeFields;
 
             return (
                 <div className="App pt-5 mt-5">
-                    <div className="container col-lg-8 mx-auto text-center">
-
+                    <div className="container col-lg-10 mx-auto text-center">
+                    {isAddResLoading && <div className="alert alert-info regLabel"><strong>Loading...</strong></div>}
+        {addReserror && <div className="alert alert-danger regLabel">{addReserror}</div>}
                         <Extras
                             values={resumeFields}
                             prevStep={prevStep}

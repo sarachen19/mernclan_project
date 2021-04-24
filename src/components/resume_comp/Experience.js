@@ -52,7 +52,8 @@ const Experience = (props) => {
                     <div className="row col-lg-10 mx-auto">
                         <div className="col-lg-12 text-left">
                             <label>Description*</label>
-                            <input type="text" name="exp1_desc" className="form-control" defaultValue={values.status === 1 ? '' : values.exp1_desc} onChange={handleChange} required />
+                            
+                            <textarea name="exp1_desc" className="form-control" onChange={handleChange} defaultValue={values.status === 1 ? '' : values.exp1_desc} required></textarea>
                         </div>
                     </div>
 
@@ -81,7 +82,8 @@ const Experience = (props) => {
                     <div className="row col-lg-10 mx-auto">
                         <div className="col-lg-12 text-left">
                             <label>Description*</label>
-                            <input type="text" name="exp2_desc" className="form-control" defaultValue={values.status === 1 ? '' : values.exp2_desc} onChange={handleChange} required />
+                            
+                            <textarea name="exp2_desc" className="form-control" onChange={handleChange} defaultValue={values.status === 1 ? '' : values.exp2_desc} required></textarea>
                         </div>
                     </div>
                     <br/>
