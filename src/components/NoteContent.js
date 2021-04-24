@@ -78,17 +78,18 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
       })
       console.log("Rajesh printing value"+cat);
       if (cat === true){
-        
-        
+        console.log("Parugu"+data.description);
+        console.log("Parugu"+data.title);
         if(data.description == ''){
+         
           const r = test.find((note) => note._id === activeNote._id);
          
-          data.description = r.description;
+          data.description = "description";
         }
         if(data.title == ''){
           const r = test.find((note) => note._id === activeNote._id);
          
-          data.title = r.title;                 
+          data.title = "Title";                 
         }
           const response =  await axios.put(      
           'https://mern-clan.herokuapp.com/api/note',
@@ -98,7 +99,13 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
          
       }
       else{
-        const response = await axios.post(      
+        if(data.description == ""){
+          data.description = "description"
+        }
+        if(data.title == ""){
+          data.title = "Title"
+        }
+          const response = await axios.post(      
           'https://mern-clan.herokuapp.com/api/note',
           data,
           config     
@@ -106,8 +113,10 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
         
        
       }
-      console.log("Sandeep4 printing inside try block");
-      localStorage.setItem('token', token);
+      setFormData({ 
+        title: '',
+        description: '',
+      });
       
     } catch (e) {
       console.log('error ', e);

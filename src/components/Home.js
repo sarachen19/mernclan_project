@@ -54,11 +54,11 @@ const resumeRoute = () =>{
         <div className = "title">
         <h1>The place where you note everything</h1>
         </div>
-
+        {auth.isLoggedIn ? null : (
         <div className = "title chaddar">
         <button type="button" class="btn btn-primary" onClick={handleRoute}>LogIn</button>
         <button type="button" class="btn btn-primary" onClick={registerRoute}>Register</button>
-        </div>
+        </div>)}
 
         <ImageSlider slides={SliderData}></ImageSlider>
         {/* <SlideShow/> */}
