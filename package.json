@@ -15,9 +15,9 @@
     "autosize": "^4.0.2",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
-    "firebase": "^8.4.1",
     "emotion": "^11.0.0",
     "file-saver": "^2.0.5",
+    "firebase": "^8.4.1",
     "font-awesome": "^4.7.0",
     "formik": "^2.2.6",
     "html2canvas": "^1.0.0-rc.7",
@@ -36,14 +36,16 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-uuid": "^1.0.2",
+    "serve": "^11.3.2",
     "web-vitals": "^1.1.0",
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": [
