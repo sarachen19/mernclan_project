@@ -6,7 +6,7 @@ const ManageResumeAction = () => {
     return (
         <div className="page-content">
         
-        <NavLink to="../components/resume_comp/AddResume"><button type="button" class="btn btn-info">Add Resume</button></NavLink>
+        <NavLink to="../resume/AddResume"><button type="button" class="btn btn-info">Add Resume</button></NavLink>
         
         
     </div>

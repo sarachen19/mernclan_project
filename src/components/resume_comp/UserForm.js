@@ -1,14 +1,21 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import PersonalDetails from './PersonalDetails';
 import Experience from './Experience';
 import Project from './Project';
 import Education from './Education';
+import axios from 'axios';
+import {Redirect } from "react-router-dom";
+import apiService from '../apiService';
+import { API_Types_Enum } from "../DataConstants";
 //import Success from './Success';
 import Extras from './Extras';
 
 
-const UserForm = () => {
-
+const UserForm = (props) => {
+    const { formStatus } = props;
+    const [isRedirect, setRedirect] = useState(false);
+    
+   
 
     const [resumeFields,setResumeFields]=useState(
         {
@@ -47,17 +54,71 @@ const UserForm = () => {
             edu2_year: '',
             edu2_qualification: '',
             edu2_desc: '',
-    
+            
             extra_1: '',
             extra_2: '',
             extra_3: '',
             extra_4: '',
             extra_5: '',
-    
+
+            
+    //user:
     
             status: 0
         }
       );
+
+    useEffect(() => {
+        if(formStatus !== undefined)
+{
+    console.log(formStatus);
+apiService("/api/resume/"+formStatus,
+      null,
+      API_Types_Enum.get,
+      (response) => setResumeFields({
+        step: 1,
+    name: response.data.name,
+    email: response.data.email,
+    phone: response.data.phone,
+    linkedin: response.data.linkedin,
+    github: response.data.github,
+    skills: response.data.skills,
+    exp1_org: response.data.experience[0].organization,
+    exp1_pos: response.data.experience[0].position,
+    exp1_desc: response.data.experience[0].description,
+    exp1_dur: response.data.experience[0].duration,
+    exp2_org: response.data.experience[1].organization,
+    exp2_pos: response.data.experience[1].position,
+    exp2_desc: response.data.experience[1].description,
+    exp2_dur: response.data.experience[1].duration,
+    proj1_title: response.data.project[0].title,
+    proj1_link: response.data.project[0].link,
+    proj1_desc:response.data.project[0].description,
+    proj2_title: response.data.project[1].title,
+    proj2_link: response.data.project[1].link,
+    proj2_desc: response.data.project[1].description,
+    edu1_school: response.data.education[0].school,
+    edu1_year: response.data.education[0].year,
+    edu1_qualification: response.data.education[0].qualification,
+    edu1_desc: response.data.education[0].description,
+    edu2_school: response.data.education[1].school,
+    edu2_year: response.data.education[1].year,
+    edu2_qualification: response.data.education[1].qualification,
+    edu2_desc: response.data.education[1].description,
+    extra_1: response.data.extra[0].title,
+    extra_2: response.data.extra[1].title,
+    extra_3: response.data.extra[2].title,
+    extra_4: response.data.extra[3].title,
+    extra_5: response.data.extra[4].title,
+    status: 0,
+    id:response.data._id
+      }),
+      (err) => console.log(err));
+    }
+      }, []);
+
+      
+     // const [extraFields,setExtraFields]=useState([]);
 
       const nextStep = () => {
         const { step } = resumeFields;
@@ -77,14 +138,53 @@ const UserForm = () => {
     };
 
     const submitted = () => {
-        const { status } = resumeFields;
-        setResumeFields({
-            ...resumeFields,
-            status: status + 1
-        });
+        // const { status } = resumeFields;
+        // setResumeFields({
+        //     ...resumeFields,
+        //     status: status + 1
+        // });
+            addResume(resumeFields);
     };
 
     
+    const addResume = async(resumedata) => {
+  
+
+    let data = resumedata;
+    try {
+        if(resumeFields.id)
+        {
+            apiService("/api/resume",
+            data,
+                API_Types_Enum.put_with_auth,
+                (response) => {console.log('resume updated');
+                setRedirect(true)},
+                (err) => console.log(err));
+            
+        }else{
+            apiService("/api/resume",
+            data,
+                API_Types_Enum.post_with_auth,
+                (response) => {console.log('resume added');
+                setRedirect(true)},
+                (err) => console.log(err));
+        }
+            
+              
+        //setRedirect(true)
+        console.log(resumedata);
+      
+    } catch (e) {
+      console.log(e.response.data.errors);
+    }
+    };
+
+    
+
+    if(isRedirect){
+        console.log('Redirecting..')
+        return <Redirect to='/resume' />
+      }
 
     const handleChange = (evt) => {
         const value = evt.target.value;

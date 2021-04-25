@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./Login.css";
 import apiService from './apiService';
 import { API_Types_Enum, apiCallURLS } from "./DataConstants";
 import { useHistory } from "react-router-dom";
+import AuthContext from '../contexts/AuthContext';
 
 const Login = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const auth = useContext(AuthContext);
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
@@ -24,6 +27,7 @@ const Login = () => {
       API_Types_Enum.post,
       (response) => {
         sessionStorage.setItem("token", response.data['token']);
+        auth.login();
         history.push('/cars');
       },
       (err) => console.log(err));

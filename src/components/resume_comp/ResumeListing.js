@@ -1,63 +1,103 @@
-import React from "react";
-import { NavLink, Link } from "react-router-dom";
-
+import React, { useState, useEffect } from 'react';
+import Pagination from "./common/pagination";
+import { paginate } from "./utils/paginate";
+import axios from 'axios';
+import ResumeTable from './ResumeTable';
+import apiService from '../apiService';
+import { API_Types_Enum } from "../DataConstants";
 
 const ResumeListing = () => {
-    return (  
-        <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>
-              <button
-                className="btn btn-danger btn-sm"
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>
-              <button
-                className="btn btn-danger btn-sm"
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            <td>
-              <button
-                className="btn btn-danger btn-sm"
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  const [resumelist, setResumelists] = useState([]);
+
+//api validation code
+const [isResumeListLoad, setIsResumeListLoad] = useState(false);
+  const [errorResumeList, setErrorResumeList] = useState();
+
+  
+  const [errorResumeDel, setErrorResumeDel] = useState();
+
+  const [pagesettings, setPageSetting] = useState(
+    {currentpage: 1,
+      pageSize: 2,
+    }
+  );
+
+  useEffect(() => {
+    setIsResumeListLoad(true);
+    apiService("/api/resume",
+      null,
+      API_Types_Enum.get_with_auth,
+      (response) => {
+        setResumelists(response["data"]);
+      setIsResumeListLoad(false);
+      setErrorResumeList(null);
+    },
+      (err) => {
+        console.log(err.response.data.msg);
+        setIsResumeListLoad(false);
+        setErrorResumeList(err.response.data.msg);
+      });
+  }, []);
+
+  const handleRemoveResume = async (idval) => {
+   
+    apiService("/api/resume",
+    { id: idval },
+    API_Types_Enum.delete_with_auth,
+    (response) => {console.log(response);
+     
+      setErrorResumeDel(null);
+      console.log(resumelist);
+      const del = resumelist.filter(resume => idval !== resume._id)
+      setResumelists(del);
+    },
+    (err) => {
+      console.log(err.response);
+    
+      setErrorResumeDel(err.response.data);
+    });
+  };
+  const handlePageChange = (page) => {
+    setPageSetting({ ...pagesettings,currentpage: page });
+  };
+
+  const { length: count} = resumelist;
+  const {
+    pageSize,
+    currentpage,
+  } = pagesettings;
+
+
+  
+  
+  
+  if (errorResumeList) return <div className="alert alert-danger">Error: {errorResumeList}</div>;
+  if (count === 0) return <span>There are no resumes in the database</span>;
+ 
+  const resumes = paginate(resumelist, currentpage, pageSize);
+
+    return (  <div className="row">
+        <div className="col">
+        {isResumeListLoad && <div className="alert alert-info "><strong>Loading...</strong></div>}
+        
+        {errorResumeDel && <div className="alert alert-danger">Error: {errorResumeDel}</div>}
+          <span>User has {resumelist.length} resumes in the profile</span>
+          <ResumeTable
+            resume_detail={resumes}
+            removeResume={handleRemoveResume}
+          ></ResumeTable>
+          <Pagination
+            itemsCount={resumelist.length}
+            pageSize={pageSize}
+            onPageChange={handlePageChange}
+            currentPage={currentpage}
+          ></Pagination>
+        </div>
+      </div>
     );
 
   };
+
+
 
 export default ResumeListing;

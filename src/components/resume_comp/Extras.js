@@ -13,13 +13,7 @@ const Extras = (props) =>{
         e.preventDefault();
         props.submitted();
         //props.nextStep();
-        
-        const data = props.values;
-
-
-     
-
-        e.target.reset();
+        //e.target.reset();
 
     }
 

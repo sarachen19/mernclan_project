@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 const Project = (props) => {
 
@@ -44,7 +44,7 @@ const Project = (props) => {
                     <div className="row col-lg-10 mx-auto">
                         <div className="col-lg-12 text-left">
                             <label>Description*</label>
-                            <input type="text" name="proj1_desc" className="form-control" defaultValue={values.status === 1 ? '' : values.proj1_desc} onChange={handleChange} required />
+                            <input type="text" name="proj1_desc" className="form-control" defaultValue={values.status === 1 ? '' : values.proj1_desc} onChange={handleChange} />
                         </div>
                     </div>
 
