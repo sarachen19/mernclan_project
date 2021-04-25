@@ -51,7 +51,8 @@ const AllGroups = (props) => {
 	const [groups, setGroups] = useState([]);
 	useEffect(() => {
 		var tempdata = [];
-		let token = localStorage.getItem("token");
+		//let token = localStorage.getItem("token");
+		let token = sessionStorage.getItem("token");
 		let config = {
 			headers: {
 				"Content-Type": "application/json",
@@ -93,7 +94,8 @@ const AllGroups = (props) => {
 
 	const onGroupAdd = (group) => {
 		if (group != null) {
-			let token = localStorage.getItem("token");
+			//let token = localStorage.getItem("token");
+			let token = sessionStorage.getItem("token");
 			let config = {
 				headers: {
 					"Content-Type": "application/json",
