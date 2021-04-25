@@ -10,12 +10,15 @@ import html2canvas from 'html2canvas';
 
 const ResumeDetails = ({ match, history }) => {
     const [resumeDetail, setresumeDetail] = useState([]);
+    const [isdetailLoading, setIsDetailLoading] = useState(false);
+    const [detailerror, setDetailError] = useState();
     useEffect(() => {
-
+      setIsDetailLoading(true);
       apiService("/api/resume/"+match.params.id,
       null,
       API_Types_Enum.get,
-      (response) => setresumeDetail({
+      (response) => {
+            setresumeDetail({
                   
             name: response.data.name,
             email: response.data.email,
@@ -58,8 +61,15 @@ const ResumeDetails = ({ match, history }) => {
             extra_4: response.data.extra[3].title,
             extra_5: response.data.extra[4].title,
 
-              }),
-      (err) => console.log(err));
+              });
+              setIsDetailLoading(false);
+              setDetailError(null);
+            },
+      (err) => {
+            setIsDetailLoading(false);
+      
+            setDetailError(err.response.data);
+      });
 
 
       }, []);
@@ -107,6 +117,8 @@ saveAs(txtBlob, 'Resume_'+dformat+'.txt');
   <div className="starter-template" >
   <div className="col-lg-12 mx-auto" id="pdf-view" style={{width:800}}>
         <br/><br/>
+        {isdetailLoading && <div className="alert alert-info regLabel"><strong>Loading...</strong></div>}
+        {detailerror && <div className="alert alert-danger regLabel">{detailerror}</div>}
         <div className="row text-center">
             <div className="w-50 mx-auto">
                 <h1><b>{resumeDetail.name}</b></h1>

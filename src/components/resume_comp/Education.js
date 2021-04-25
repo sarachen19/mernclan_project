@@ -51,7 +51,8 @@ const Education = (props) => {
                     <div className="row col-lg-10 mx-auto">
                         <div className="col-lg-12 text-left">
                             <label>Description*</label>
-                            <input type="text" name="edu1_desc" className="form-control" defaultValue={values.status === 1 ? '' : values.edu1_desc} onChange={handleChange} required />
+                            
+                            <textarea name="edu1_desc" className="form-control" onChange={handleChange} defaultValue={values.status === 1 ? '' : values.edu1_desc} required></textarea>
                         </div>
                     </div>
 
@@ -83,7 +84,8 @@ const Education = (props) => {
                     <div className="row col-lg-10 mx-auto">
                         <div className="col-lg-12 text-left">
                             <label>Description</label>
-                            <input type="text" name="edu2_desc" className="form-control" defaultValue={values.status === 1 ? '' : values.edu2_desc} onChange={handleChange} />
+                            <textarea name="edu2_desc" className="form-control" onChange={handleChange} defaultValue={values.status === 1 ? '' : values.edu2_desc}></textarea>
+                            
                         </div>
                     </div>
                     <br />

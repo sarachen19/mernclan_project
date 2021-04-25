@@ -5,7 +5,7 @@ import Button from './Button';
 const Sidebar = ({notes,onAddNote,onDeleteNote,activeNote,setActiveNote,setTextDisabled,setNotes}) => {
     const [data,setData] = useState("");
     useEffect(() => {
-        axios.get('http://localhost:5000/api/note').then((response) => {
+        axios.get('https://mern-clan.herokuapp.com/api/note').then((response) => {
           response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
           setData( response.data);
          // setTest(response.data);
@@ -38,7 +38,7 @@ const Sidebar = ({notes,onAddNote,onDeleteNote,activeNote,setActiveNote,setTextD
         console.log("Mayank printing title"+title);
         if (!title || title ===" " || title===undefined) {
       
-        axios.get('http://localhost:5000/api/note').then((response) => {
+        axios.get('https://mern-clan.herokuapp.com/api/note').then((response) => {
           response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
           setNotes(response.data);
           
@@ -82,7 +82,7 @@ const Sidebar = ({notes,onAddNote,onDeleteNote,activeNote,setActiveNote,setTextD
   else if(clicked){
     console.log("Mayank2 printing clicked"+clicked);
     setClicked(false);
-    axios.get('http://localhost:5000/api/note').then((response) => {
+    axios.get('https://mern-clan.herokuapp.com/api/note').then((response) => {
       response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
       setNotes(response.data);
     });
@@ -130,10 +130,10 @@ const Sidebar = ({notes,onAddNote,onDeleteNote,activeNote,setActiveNote,setTextD
                   <button onClick={
                       () => {
                         onDeleteNote(note._id);
-                        refreshPage();
+                        
                       }}>Delete</button>
                   <button onClick={() => {setActiveNote(note._id);setTextDisabled(false)}}>Update</button>
-                  <button  onClick={() =>{ setActiveNote(note._id);setTextDisabled(true)}}>View</button>
+                  <button onClick={() =>{ setActiveNote(note._id);setTextDisabled(true)}}>View</button>
           </div>
           <p>{note.description && note.description.substr(0,100)+ "..."}</p>
           <small className ="note-meta">Lastmodified {new Date(note.date).toLocaleDateString("en-GB",{

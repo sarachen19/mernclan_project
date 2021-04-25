@@ -23,7 +23,7 @@ const PersonalDetails = (props) => {
         <div className="row col-lg-10 mx-auto">
             <div className="col-lg-4 text-left">
                 <label>Name*</label>
-                <input type="text" name="name" className="form-control" onChange={handleChange} defaultValue={values.status === 1 ? '' : values.name} required />
+                <input type="text" name="name" className="form-control" onChange={handleChange} defaultValue={values.status === 1 ? '' : values.name}  />
             </div>
             <div className="col-lg-4 text-left">
                 <label>Email*</label>
@@ -49,7 +49,7 @@ const PersonalDetails = (props) => {
         <div className="row col-lg-10 mx-auto">
             <div className="col-lg-12 text-left">
                 <label>Skills* (Separate each skill with a space and a comma)</label>
-                <input type="text" name="skills" className="form-control"  defaultValue={values.status === 1 ? '' : values.skills} onChange={handleChange} />
+                <input type="text" name="skills" className="form-control"  defaultValue={values.status === 1 ? '' : values.skills} onChange={handleChange} required/>
             </div>
         </div>
         <br />

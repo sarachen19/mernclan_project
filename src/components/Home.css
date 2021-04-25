@@ -6,3 +6,111 @@
     margin-top:20px;
     
 }
+.trans{
+    text-align: center;
+  }
+.home .wp-block-columns {
+    width: 85% !important;
+}
+.wp-block-columns {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width:10%;
+    margin-top:10%;
+    padding: 0;
+    margin-left:6%;
+}
+.wp-block-columns {
+    margin-bottom: -32px !important;
+}
+.wp-block-column {
+ font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+ border:2px solid blue;
+ padding:5%;
+ box-shadow: 2px 5px #888888
+}
+.wp-block-column  h3{
+    padding-left:30px;
+}
+.wp-block-column  button{
+    margin-left:40px;
+}
+
+
+
+.wp-block-column-jr {
+    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    border:2px solid blue;
+    padding:5%;
+    box-shadow: 2px 5px #888888
+   }
+   .wp-block-column-jr  h3{
+       padding-left:30px;
+   }
+   .wp-block-column-jr  button{
+       margin-left:50px;
+   }
+   
+ 
+
+
+.wp-block-column-job {
+    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    border:2px solid blue;
+    padding:5%;
+    box-shadow: 2px 5px #888888
+ 
+}
+.wp-block-column-job  button{
+    margin-left:80px;
+}
+
+.wp-block-column-job  h3{
+    padding-left:20px;
+}
+
+.wp-block-column-job  p{
+    margin-left:10px;
+}
+
+
+
+div {
+    display: block;
+}
+
+.slider{
+    position:relative;
+    height:70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image{
+    width:700px;
+    height:400px;
+    border-radius:10px;
+}
+
+.right-arrow{
+    position: absolute;
+    top:50%;
+    right:20%;
+    font-size:3rem;
+    color:#000;
+    z-index:10;
+    cursor:pointer;
+    user-select: none;
+}
+.left-arrow{
+    position: absolute;
+    top:50%;
+    left:20%;
+    font-size:3rem;
+    color:#000;
+    z-index:10;
+    cursor:pointer;
+    user-select: none;
+}

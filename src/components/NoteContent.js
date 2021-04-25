@@ -1,10 +1,9 @@
-
 import ReactMarkdown from 'react-markdown';
 import React, { useState,useCallback } from 'react';
 import axios from 'axios';
 import TagsInput from './TagsInput';
 
-const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote, setNotes}) => {
+const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote, setNotes, setTest}) => {
   const [temp,setTemp] = useState([]);
   const [tag,setTag] = useState([]);
   
@@ -44,8 +43,8 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
   const OnSubmit2 = async (e) => {
     e.preventDefault();
     
-    let token = localStorage.getItem('token');
-    
+    let token = sessionStorage.getItem('token');
+    console.log("Tejal"+token);
     let config = {
       headers: {
         'Content-Type': 'application/json',
@@ -69,7 +68,8 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
     try {
       test.map(tes => {
        
-        
+        console.log("gguu"+tes._id);
+        console.log("gguu1"+activeNote._id);
         if(tes._id === activeNote._id){
         
           cat = true;            
@@ -78,39 +78,45 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
       })
       console.log("Rajesh printing value"+cat);
       if (cat === true){
-        
-        
+        console.log("Parugu"+data.description);
+        console.log("Parugu"+data.title);
         if(data.description == ''){
+         
           const r = test.find((note) => note._id === activeNote._id);
          
-          data.description = r.description;
+          data.description = "description";
         }
         if(data.title == ''){
           const r = test.find((note) => note._id === activeNote._id);
          
-          data.title = r.title;
-          
-          
+          data.title = "Title";                 
         }
-
           const response =  await axios.put(      
-          'http://localhost:5000/api/note',
+          'https://mern-clan.herokuapp.com/api/note',
           data,
           config     
         );
          
       }
       else{
-        const response = await axios.post(      
-          'http://localhost:5000/api/note',
+        if(data.description == ""){
+          data.description = "description"
+        }
+        if(data.title == ""){
+          data.title = "Title"
+        }
+          const response = await axios.post(      
+          'https://mern-clan.herokuapp.com/api/note',
           data,
           config     
         ); 
         
        
       }
-      console.log("Sandeep4 printing inside try block");
-      localStorage.setItem('token', token);
+      setFormData({ 
+        title: '',
+        description: '',
+      });
       
     } catch (e) {
       console.log('error ', e);
@@ -121,9 +127,10 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
     // useCallback(() => {
     //   setActiveNote(!activeNote);
     // })
-    axios.get('http://localhost:5000/api/note').then((response) => {
+    axios.get('https://mern-clan.herokuapp.com/api/note').then((response) => {
       response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
       setNotes(response.data);
+      setTest(response.data);
       
     });
   };

@@ -5,13 +5,25 @@ import NoteSidebar from './NoteSidebar' ;
 import NoteContent from './NoteContent';
 import uuid from 'react-uuid';
 import axios from 'axios';
+import apiService from './apiService';
+import { API_Types_Enum } from "./DataConstants";
+
 
 const Note = () => {
 
   const [notes,setNotes] = useState([]);
   const [test,setTest] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:5000/api/note').then((response) => {
+
+    // apiService("https://mern-clan.herokuapp.com/api/note",
+    //   null,
+    //   API_Types_Enum.get,
+    //   (response) => { response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
+    //     setNotes(response.data);
+    //     setTest(response.data);},
+    //   (err) => console.log(err));
+
+    axios.get('https://mern-clan.herokuapp.com/api/note').then((response) => {
       response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
       setNotes(response.data);
       setTest(response.data);
@@ -46,6 +58,7 @@ const Note = () => {
     }
 
     setNotes([newNote,...notes]);
+    //setTest([newNote,...test]);
     console.log("Pranay1 printing notes.id"+ notes._id);
     console.log("Pranay1 printing notes.id"+ notes.title);
     console.log("Pranay1 printing notes.id"+ notes.date);
@@ -55,7 +68,7 @@ const Note = () => {
   const onDeleteNote = async (noteId) => {
     console.log("Sandeep12 printing id"+ noteId);
     //setNotes(notes.filter((eachNote) => eachNote.id!== note.id ));
-    let token = localStorage.getItem('token');
+    let token = sessionStorage.getItem('token');
         console.log("Sandeep printing"+ token);
         let config = {
           headers: {
@@ -71,14 +84,20 @@ const Note = () => {
         console.log("Sandeep1234 printing id"+ noteId);
         try {
           const response = await axios.delete(
-            'http://localhost:5000/api/note',
+            'https://mern-clan.herokuapp.com/api/note',
             config
           );
+          
           localStorage.setItem('token', token);
           console.log(response);
         } catch (e) {
           console.log('error ', e);
         }
+        axios.get('https://mern-clan.herokuapp.com/api/note').then((response) => {
+          response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
+          setNotes(response.data);
+          
+        });
       };
   
 
@@ -124,6 +143,7 @@ const Note = () => {
           activeNote ={ getActiveNote()} 
           onEditNote={onEditNote} 
           test={test} 
+          setTest={setTest}
           textDisabled = {textDisabled}
           setActiveNote = {setActiveNote}  
           setNotes = {setNotes}    
