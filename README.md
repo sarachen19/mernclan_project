@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+* Created with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Noteworks :
 
-## Available Scripts
+A self-assessment website that allows users to organize work-life while exploring various features such as creating notes, tasks, writing journals, making job applications, designing resumes/portfolios.
 
-In the project directory, you can run:
+## Hosted at - https://mern-noteworks.herokuapp.com/
 
-### `npm start`
+## Kanishka Deshpande
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- N01352440
+- Job applications api
+  - CRUD for job applications
+  - code reusability architecture (API calling, table, constants file)
+  - Resource storage using firebase bucket
+  - Deployments
+- User Creation & Authentication
+  - Registration of users
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Xirui Chen
 
-### `npm test`
+- N01387504
+- task components api
+  - CRUD for tasks, a user can have several tasks, each task has several sub-tasks(cards), each card has several checklists and todos
+  - add/delete for checklist, todo
+  - Choosing a colored label for a task
+  - Choosing a background picture for a task
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Sandeep Karedla
 
-### `npm run build`
+- N01350427
+- Note components api
+  - CRUD operations for Notes
+  - Authentication of users using token
+- Sorting Notes to display the latest created note on top.
+- Search bar to filter the Note of user's choice.
+- Set as favourite option to set a particular note as priority.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tejal Gajjar
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- N01323994
+- Resume components API
+  - CRUD operations for Resume
+  - Authentication based routing
+- Resume Download PDF API
+  - create-pdf API : convert HTML to PDF
+  - fetch-pdf API : send generated PDF file to the client
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Sayali Mali
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- N01350455
+- Journal components api
+  - CRUD operations for Journal
+  - Authentication of users using token
+  - Add image option
+- Reminder components api
+  - CRUD operations for reminder
+  - Authentication of users using token
