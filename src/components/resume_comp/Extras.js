@@ -3,17 +3,16 @@ import React, { Component } from 'react';
 
 
 const Extras = (props) =>{
-
+ //back button function
     const back = (e) => {
         e.preventDefault();
         props.prevStep();
     };
-
+//submit button function
     const formSubmit = (e) => {
         e.preventDefault();
         props.submitted();
-        //props.nextStep();
-        //e.target.reset();
+        
 
     }
 

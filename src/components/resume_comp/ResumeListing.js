@@ -72,7 +72,7 @@ const [isResumeListLoad, setIsResumeListLoad] = useState(false);
     
     setSortSetting(sortColumn);
   };
-
+//pagination and sorting logic
   const { length: count} = resumelist;
   const {
     pageSize,

@@ -22,6 +22,7 @@ class ResumeTable extends Component {
   this.props.onSort(sortColumn);
   
  }
+ //sorting order icon function
  renderSortIcon = column =>
  {
    const {sortColumn} = this.props;

@@ -3,7 +3,7 @@ import React from 'react'
 
 const PersonalDetails = (props) => {
 
-    
+     //next button function
     const continueProcess = (e) => {
         e.preventDefault();
         props.nextStep();

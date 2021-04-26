@@ -1,12 +1,12 @@
 import React from 'react';
 
 const Education = (props) => {
-
+    //back button function
     const back = (e) => {
         e.preventDefault();
         props.prevStep();
     };
-
+    //next button function
     const continueProcess = (e) => {
         e.preventDefault();
         props.nextStep();

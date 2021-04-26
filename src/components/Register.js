@@ -16,7 +16,7 @@ const Register = () => {
   const [error, setError] = useState();
   const auth = useContext(AuthContext);
 
-
+//formik for form validations and error message
   const formik = useFormik({
     initialValues: {
       name: '',

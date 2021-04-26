@@ -13,6 +13,7 @@ const ResumeDetails = ({ match, history }) => {
     const [isdetailLoading, setIsDetailLoading] = useState(false);
     const [detailerror, setDetailError] = useState();
     useEffect(() => {
+          //on page load get api to fetch detail of resume
       setIsDetailLoading(true);
       apiService("/api/resume/"+match.params.id,
       null,
@@ -75,7 +76,7 @@ const ResumeDetails = ({ match, history }) => {
       }, []);
 
       
-
+//pdf download functionality
         const pdfDownload = e => {
             e.preventDefault();
             let d = new Date();
@@ -90,7 +91,7 @@ const ResumeDetails = ({ match, history }) => {
             });
         }
 
-
+//text download functionality
         const downloadTXT = () => {
            
             const data = resumeDetail;

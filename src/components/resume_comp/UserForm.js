@@ -61,9 +61,6 @@ const UserForm = (props) => {
             extra_3: '',
             extra_4: '',
             extra_5: '',
-
-            
-    //user:
     
             status: 0
         }
@@ -72,7 +69,7 @@ const UserForm = (props) => {
     useEffect(() => {
         if(formStatus !== undefined)
 {
-    console.log(formStatus);
+    // get api call on edit resume
 apiService("/api/resume/"+formStatus,
       null,
       API_Types_Enum.get,
@@ -119,7 +116,7 @@ apiService("/api/resume/"+formStatus,
       }, []);
 
       
-     // const [extraFields,setExtraFields]=useState([]);
+     // next button function
 
       const nextStep = () => {
         const { step } = resumeFields;
@@ -137,13 +134,9 @@ apiService("/api/resume/"+formStatus,
             step: step - 1
         });
     };
-
+//submit button function
     const submitted = () => {
-        // const { status } = resumeFields;
-        // setResumeFields({
-        //     ...resumeFields,
-        //     status: status + 1
-        // });
+        
             addResume(resumeFields);
     };
 
@@ -155,7 +148,7 @@ apiService("/api/resume/"+formStatus,
     try {
         if(resumeFields.id)
         {
-            console.log(data);
+           //update api call with put method
             setIsAddResLoading(true);
             apiService("/api/resume",
             data,
@@ -178,6 +171,7 @@ apiService("/api/resume/"+formStatus,
                 });
             
         }else{
+            //post api call with post method
             setIsAddResLoading(true);
             apiService("/api/resume",
             data,
@@ -199,7 +193,7 @@ apiService("/api/resume/"+formStatus,
         }
             
               
-        //setRedirect(true)
+        
         console.log(resumedata);
       
     } catch (e) {
@@ -208,12 +202,13 @@ apiService("/api/resume/"+formStatus,
     };
 
     
-
+//redirection logic
     if(isRedirect){
         console.log('Redirecting..')
         return <Redirect to='/resume' />
       }
 
+      //handlechange function
     const handleChange = (evt) => {
         const value = evt.target.value;
         setResumeFields({
@@ -221,6 +216,7 @@ apiService("/api/resume/"+formStatus,
           [evt.target.name]: value
         });
     };
+    //multi-step form structure
 const { step } = resumeFields;
     switch (step) {
         case 1:
