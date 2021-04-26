@@ -52,6 +52,7 @@ A self-assessment website that allows users to organize work-life while explorin
   - create-text API : convert HTML to Text
 - User Registration Page
 - AuthContext for Login and Logout
+- Multi step form integration for Add and update Resume
 
 ## Sayali Mali
 
