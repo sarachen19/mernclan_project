@@ -108,7 +108,7 @@ const AllGroups = (props) => {
 			};
 			try {
 				const response = axios.post(
-					"http://localhost:5000/api/task/group",
+					"https://mern-clan.herokuapp.com/api/task/group",
 					data,
 					config
 				);
@@ -137,7 +137,7 @@ const AllGroups = (props) => {
 			};
 			try {
 				const response = axios.post(
-					"http://localhost:5000/api/task/card/add",
+					"https://mern-clan.herokuapp.com/api/task/card/add",
 					data,
 					config
 				);

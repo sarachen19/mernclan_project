@@ -17,7 +17,7 @@ const AllCards = (props) => {
 
 		var tempCards = [];
 		axios
-			.post("http://localhost:5000/api/task/card/", data, config)
+			.post("https://mern-clan.herokuapp.com/api/task/card/", data, config)
 			.then((response) => {
 				//console.log(response.data);
 				let temp = response.data;
@@ -52,7 +52,7 @@ const AllCards = (props) => {
 
 		var tempCards = [];
 		axios
-			.post("http://localhost:5000/api/task/card/", data, config)
+			.post("https://mern-clan.herokuapp.com/api/task/card/", data, config)
 			.then((response) => {
 				let temp = response.data;
 				temp.map((card, index) => {
