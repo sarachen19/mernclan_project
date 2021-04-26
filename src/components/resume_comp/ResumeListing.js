@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Pagination from "./common/pagination";
 import { paginate } from "./utils/paginate";
-import axios from 'axios';
+import decode from 'jwt-decode';
 import ResumeTable from './ResumeTable';
 import apiService from '../apiService';
 import { API_Types_Enum } from "../DataConstants";
@@ -29,12 +29,16 @@ const [isResumeListLoad, setIsResumeListLoad] = useState(false);
   );
 
   useEffect(() => {
+    let decodeduser = decode(sessionStorage.getItem('token'));
+    let current_log_userid  = decodeduser.user.id;
     setIsResumeListLoad(true);
     apiService("/api/resume",
       null,
       API_Types_Enum.get_with_auth,
       (response) => {
-        setResumelists(response["data"]);
+     
+        const current_user_data = response["data"].filter((resume) => resume.user === current_log_userid);
+        setResumelists(current_user_data);
       setIsResumeListLoad(false);
       setErrorResumeList(null);
     },
