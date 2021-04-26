@@ -1,4 +1,68 @@
 .button {
+  background-color: #ddd;
+
+  border: none;
+  color: #08c;
+  
+  padding: 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+}
+
+.button5 {border-radius: 50%;}
+
+#parentDiv{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    align-content: flex-start
+}
+
+#parentDiv button{
+  
+  position: relative;
+  display: block;
+  width: 70px;
+  height: 50px;
+  border-radius: 10px 5px 5px 10px;
+  background: blue;
+  font: 10px Constantia, sans-serif;
+  color: blue;
+ 
+  text-align: center;
+  text-decoration: none;
+}
+
+#parentDiv button:before,
+#parentDiv button:after {
+  content: '';
+  position: absolute;
+  right: -15px;
+  width: 32px;
+  height: 15px;
+  border-radius: 5px;
+  background: blue;
+}
+#parentDiv button:before {
+  top: 9px;
+  -webkit-transform: rotate(65deg);
+  -ms-transform: rotate(65deg);
+  transform: rotate(65deg);
+}
+#parentDiv button:after {
+  bottom: 9px;
+  -webkit-transform: rotate(-65deg);
+  -ms-transform: rotate(-65deg);
+  transform: rotate(-65deg);
+}
+
+@media screen and (max-width: 800px) {
+  .button {
     background-color: #ddd;
 
     border: none;
@@ -60,3 +124,4 @@
     -ms-transform: rotate(-65deg);
     transform: rotate(-65deg);
   }
+}

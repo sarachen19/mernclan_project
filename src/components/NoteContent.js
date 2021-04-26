@@ -36,7 +36,6 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
   };
 
   const selectedTags = tags =>{
-    console.log("Jubs"+tags);
     setTag(tags);
   } 
   
@@ -80,17 +79,14 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
       if (cat === true){
         console.log("Parugu"+data.description);
         console.log("Parugu"+data.title);
-        if(data.description == ''){
-         
-          const r = test.find((note) => note._id === activeNote._id);
-         
-          data.description = "description";
+        
+        if(data.description == ""){
+          data.description = activeNote.description;
         }
-        if(data.title == ''){
-          const r = test.find((note) => note._id === activeNote._id);
-         
-          data.title = "Title";                 
+        if(data.title == ""){
+          data.title = activeNote.title;
         }
+       
           const response =  await axios.put(      
           'https://mern-clan.herokuapp.com/api/note',
           data,

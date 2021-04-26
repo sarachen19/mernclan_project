@@ -23,22 +23,28 @@ const Button = (props) => {
       console.log("Huhu"+note.title);
       for(let i=0;i<note.tagData.length;i++){
         if(note.tagData[i] != null){
-        array.push(
-         // <div id="parentDiv">
-          <button
-          
-             className="button button5"
-             //className="changed"
-             //className="tag"
-             //className= "btn btn-outline-info btn-rounded"
-             //data-mdb-ripple-color="dark"
-           style={buttonStyle}
-            value={note.tagData[i]}
-            onClick={handleButtonClicked}
-            
-            >{"#"+note.tagData[i]}</button>
-            //</div>
-            )
+          if(array.filter((value, id, array) => {
+            return (array.value == note.tagData[i]);
+          }))
+          {
+            array.push(
+              // <div id="parentDiv">
+               <button
+               
+                  className="button button5"
+                  //className="changed"
+                  //className="tag"
+                  //className= "btn btn-outline-info btn-rounded"
+                  //data-mdb-ripple-color="dark"
+                style={buttonStyle}
+                 value={note.tagData[i]}
+                 onClick={handleButtonClicked}
+                 
+                 >{"#"+note.tagData[i]}</button>
+                 //</div>
+                 )
+          }
+       
       }
 
     }}
@@ -58,7 +64,7 @@ const Button = (props) => {
        
       
 
-    return arrOne;
+    return array;
         
 }
 
