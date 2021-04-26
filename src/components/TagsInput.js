@@ -19,12 +19,9 @@ const addTags = event => {
 let sam ="";
 let s;  
 
-const valueUpdate = () => {
-  console.log("Manju"+props.activeNote.tagData);
-  console.log("Manju22");
- 
+const valueUpdate = () => { 
     if(props.activeNote.tagData != "" && props.activeNote.tagData != null){
-      console.log("Manju inside if check");
+   
       for(let i=0;i<props.activeNote.tagData.length;i++){
         if(sam ==""){
           sam = props.activeNote.tagData[i];
