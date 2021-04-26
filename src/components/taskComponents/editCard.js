@@ -333,7 +333,7 @@ class EditCard extends Component {
 			cover: imageSrc,
 		};
 		axios
-			.put("http://localhost:5000/api/task/cover", data, config)
+			.put("https://mern-clan.herokuapp.com/api/task/cover", data, config)
 			.then((response) => {
 				this.onAddLabels();
 			});

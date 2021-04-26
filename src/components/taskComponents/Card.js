@@ -214,7 +214,11 @@ class Card extends Component {
 
 			var tempChecklists = [];
 			axios
-				.post("http://localhost:5000/api/task/checklist", data, config)
+				.post(
+					"https://mern-clan.herokuapp.com/api/task/checklist",
+					data,
+					config
+				)
 				.then((response) => {
 					// console.log(response);
 					if (response.data != "") {

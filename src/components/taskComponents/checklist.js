@@ -89,7 +89,7 @@ const Checklist = (props) => {
 		};
 		try {
 			const response = axios.post(
-				"http://localhost:5000/api/task/checklist/add",
+				"https://mern-clan.herokuapp.com/api/task/checklist/add",
 				data,
 				config
 			);

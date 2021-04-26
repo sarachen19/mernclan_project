@@ -61,7 +61,7 @@ const AllGroups = (props) => {
 		};
 
 		axios
-			.get("http://localhost:5000/api/task/group", config)
+			.get("https://mern-clan.herokuapp.com/api/task/group", config)
 			.then((response) => {
 				//console.log(response.data);
 				let temp = response.data;

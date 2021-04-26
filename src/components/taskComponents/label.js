@@ -69,7 +69,7 @@ class Label extends Component {
 			labels: newLabels,
 		};
 		axios
-			.put("http://localhost:5000/api/task/label", data, config)
+			.put("https://mern-clan.herokuapp.com/api/task/label", data, config)
 			.then((response) => {
 				this.props.onAddLabels();
 			});
