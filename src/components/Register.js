@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Form from "react-bootstrap/Form";
@@ -8,11 +8,14 @@ import decode from 'jwt-decode';
 import { useHistory } from "react-router-dom";
 import apiService from './apiService';
 import { API_Types_Enum, apiCallURLS } from "./DataConstants";
+import AuthContext from '../contexts/AuthContext';
 
 const Register = () => {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
+  const auth = useContext(AuthContext);
+
 
   const formik = useFormik({
     initialValues: {
@@ -41,6 +44,7 @@ const Register = () => {
           sessionStorage.setItem("token", response.data['token']);
           let decodeduser = decode(response.data.token);
           console.log(decodeduser);
+          auth.login();
           setIsLoading(false);
           setError(null);
           history.push('/home');
