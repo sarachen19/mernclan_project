@@ -42,9 +42,12 @@ A self-assessment website that allows users to organize work-life while explorin
 - Resume components API
   - CRUD operations for Resume
   - Authentication based routing
-- Resume Download PDF API
+- Resume Download as PDF and Text API
   - create-pdf API : convert HTML to PDF
   - fetch-pdf API : send generated PDF file to the client
+  - create-text API : convert HTML to Text
+- User Registration Page
+- AuthContext for Login and Logout
 
 ## Sayali Mali
 
