@@ -36,6 +36,7 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
   };
 
   const selectedTags = tags =>{
+    console.log("Jubs"+tags);
     setTag(tags);
   } 
   
@@ -79,12 +80,12 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
       if (cat === true){
         console.log("Parugu"+data.description);
         console.log("Parugu"+data.title);
-        
-        if(data.description == ""){
-          data.description = activeNote.description;
-        }
+
         if(data.title == ""){
           data.title = activeNote.title;
+        }
+        if(data.description == ""){
+          data.description = activeNote.description;
         }
        
           const response =  await axios.put(      
