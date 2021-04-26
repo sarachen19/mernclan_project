@@ -33,8 +33,12 @@ A self-assessment website that allows users to organize work-life while explorin
   - CRUD operations for Notes
   - Authentication of users using token
 - Sorting Notes to display the latest created note on top.
-- Search bar to filter the Note of user's choice.
-- Set as favourite option to set a particular note as priority.
+- Search bar to filter the Note of user's choice based on Title.
+- Added tag option so that the user can filter a particular using one click.
+- Home Page
+  - Added LogIn and Register Options on Home Page.
+  - Displaying multiple router options and navigating to a router based on user selection if the user is loggedIn using AuthContext.
+  - Displaying multiple router options and navigating to login page if the user is not loggedIn using AuthContext.
 
 ## Tejal Gajjar
 
