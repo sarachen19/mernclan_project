@@ -36,7 +36,7 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
   };
 
   const selectedTags = tags =>{
-    console.log("Jubs"+tags);
+    console.log("Jubba"+tags);
     setTag(tags);
   } 
   

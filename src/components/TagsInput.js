@@ -3,34 +3,47 @@ import { useState } from 'react';
 import '../components/TagsInput.css';
 
 
+
 const TagsInput = (props) => {
+
+
 const [tags,setTags] = useState([]);
 const addTags = event => {
     if(event.key === "Enter" && event.target.value !== ""){
         setTags([...tags,event.target.value]);
+        
         props.selectedTags([...tags, event.target.value]);
         event.target.value = "";
     }
 }
-
 let sam ="";
+let s;  
+
 const valueUpdate = () => {
-if(props.activeNote.tagData){
-  for(let i=0;i<props.activeNote.tagData.length;i++){
-    if(sam ==""){
-      sam = props.activeNote.tagData[i];
-    }
-    else{
-      sam = sam+","+props.activeNote.tagData[i]; 
-    }
+  console.log("Manju"+props.activeNote.tagData);
+  console.log("Manju22");
+ 
+    if(props.activeNote.tagData != "" && props.activeNote.tagData != null){
+      console.log("Manju inside if check");
+      for(let i=0;i<props.activeNote.tagData.length;i++){
+        if(sam ==""){
+          sam = props.activeNote.tagData[i];
+        }
+        else{
+          sam = sam+","+props.activeNote.tagData[i]; 
+        }
+         
+      }
+      console.log("Maharshi"+sam);
+     s = sam;
+      sam = "";
      
-  }
-  console.log("Maharshi"+sam);
-  const s = sam;
-  sam = ""
-  return s;
+      return s;
+    }
+ 
+ 
+
 }
-  }
   
 
 const removeTags = index => {
@@ -56,9 +69,11 @@ return(
       <input
         type="text"
         onKeyUp={event => event.key === "Enter" ? addTags(event) : null}
+      
         placeholder="Enter the tags"
        // value={props.activeNote.tagData[0]}    
-        value={valueUpdate()}
+      
+       placeholder={valueUpdate()}
       />
       </div>
     </div>
