@@ -5,9 +5,6 @@ import NoteSidebar from './NoteSidebar' ;
 import NoteContent from './NoteContent';
 import uuid from 'react-uuid';
 import axios from 'axios';
-import apiService from './apiService';
-import { API_Types_Enum } from "./DataConstants";
-
 
 const Note = () => {
 
@@ -15,26 +12,12 @@ const Note = () => {
   const [test,setTest] = useState([]);
   useEffect(() => {
 
-    // apiService("https://mern-clan.herokuapp.com/api/note",
-    //   null,
-    //   API_Types_Enum.get,
-    //   (response) => { response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
-    //     setNotes(response.data);
-    //     setTest(response.data);},
-    //   (err) => console.log(err));
-
     axios.get('https://mern-clan.herokuapp.com/api/note').then((response) => {
       response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
       setNotes(response.data);
       setTest(response.data);
       console.log(response);
     });
-    // fetch('https://jsonplaceholder.typicode.com/posts')
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setPosts(data);
-    //     console.log(data);
-    //   });
   }, []);
   
 
@@ -59,10 +42,6 @@ const Note = () => {
 
     setNotes([newNote,...notes]);
     //setTest([newNote,...test]);
-    console.log("Pranay1 printing notes.id"+ notes._id);
-    console.log("Pranay1 printing notes.id"+ notes.title);
-    console.log("Pranay1 printing notes.id"+ notes.date);
-    console.log("Pranay1 printing notes.id"+ notes.description);
   }
    
   const onDeleteNote = async (noteId) => {
@@ -87,8 +66,6 @@ const Note = () => {
             'https://mern-clan.herokuapp.com/api/note',
             config
           );
-          
-          localStorage.setItem('token', token);
           console.log(response);
         } catch (e) {
           console.log('error ', e);
@@ -114,12 +91,8 @@ const Note = () => {
 
  
    
-  const getActiveNote = () => {
-    console.log("Sandeep"+activeNote);
-    
+  const getActiveNote = () => {    
     const r = notes.find((note) => note._id === activeNote);
-  
-    console.log("Sandeep rabba"+r);
    return r;
     
   };

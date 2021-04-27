@@ -6,23 +6,13 @@ import TagsInput from './TagsInput';
 const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote, setNotes, setTest}) => {
   const [temp,setTemp] = useState([]);
   const [tag,setTag] = useState([]);
-  
-  test.map((tes) => {
-    console.log("Akhil"+tes._id);
-    console.log("Akhil"+tes.title);
-  })
  
-  console.log("Akhil"+textDisabled);
   const [formData, setFormData] = useState({ 
     title: '',
     description: '',
   });
   const { title, description }= formData;
   const onEditField = (key,value) => {
-    console.log("Akka printing activeNote._id"+activeNote._id);
-    console.log("Akka printing activeNote.title"+activeNote.title);
-    console.log("Akka printing activeNote.description"+activeNote.description);
-    console.log("Akka printing activeNote.date"+activeNote.date);
    
     onEditNote({
       ...activeNote,
@@ -36,27 +26,21 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
   };
   const [check,setCheck] = useState(false);
   const selectedTags = tags =>{
-  
-    
-      console.log("Jubs"+tags);
       setTag(tags);
-      setCheck(true);
-    
-    
+      setCheck(true);  
   } 
   
   const OnSubmit2 = async (e) => {
     e.preventDefault();
     
     let token = sessionStorage.getItem('token');
-    console.log("Tejal"+token);
     let config = {
       headers: {
         'Content-Type': 'application/json',
         'x-auth-token': token,
       },
     };
-   let d;
+
     let data = {   
       id:activeNote._id,
       title: title,
@@ -65,41 +49,30 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
       tags:[],
      
     };
-    console.log("chiru"+check);
     if(check == true){
       data.tags = tag;
       setCheck(false);
     }
-     
-    console.log("Huma"+tag);
-    var res;
     var cat = false;
     
     try {
       test.map(tes => {
-       
-        console.log("gguu"+tes._id);
-        console.log("gguu1"+activeNote._id);
-        if(tes._id === activeNote._id){
-        
+        if(tes._id === activeNote._id){     
           cat = true;            
         }
       
       })
-      console.log("Rajesh printing value"+cat);
+      
       if (cat === true){
-        console.log("Parugu"+data.description);
-        console.log("Parugu"+data.title);
-
         if(data.title == ""){
           data.title = activeNote.title;
         }
         if(data.description == ""){
           data.description = activeNote.description;
-        }
-       
+        }       
           const response =  await axios.put(      
           'https://mern-clan.herokuapp.com/api/note',
+         
           data,
           config     
         );
@@ -114,6 +87,7 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
         }
           const response = await axios.post(      
           'https://mern-clan.herokuapp.com/api/note',
+         
           data,
           config     
         ); 

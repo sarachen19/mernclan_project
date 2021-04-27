@@ -9,15 +9,12 @@ var buttonStyle = {
 const Button = (props) => {
 
   const handleButtonClicked = (e) => {
-    e.preventDefault();
-    console.log("Devuda"+e.target.value); //will give you the value continue
+    e.preventDefault(); //will give you the value continue
     props.filterTag(e.target.value);
   
   }
 
-  const array = [];
-  let uniqueNames = array;
- 
+  const array = []; 
     props.notes.map((note) => {
       
       console.log("Huhu"+note.title);
@@ -48,20 +45,13 @@ const Button = (props) => {
     }}
       
       )
-   
-
       const arrOne = new Set(array);
       console.log(arrOne);
       for(let i=0;i<arrOne.length;i++){
         console.log("Hulla"+arrOne[i]);  
       }
-
       const arrTwo = array.filter((item, index) => array.indexOf(item) == index);
       console.log(arrTwo);
-      
-       
-      
-
     return array;
         
 }

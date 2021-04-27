@@ -11,26 +11,13 @@ const Sidebar = ({notes,onAddNote,onDeleteNote,activeNote,setActiveNote,setTextD
          // setTest(response.data);
           console.log(response);
         });
-        // fetch('https://jsonplaceholder.typicode.com/posts')
-        //   .then((response) => response.json())
-        //   .then((data) => {
-        //     setPosts(data);
-        //     console.log(data);
-        //   });
       }, []);
 
-   // const sortedNotes = notes.sort((a, b) => b.date - a.date);
    
     function refreshPage() {
         window.location.reload(false);
     }
-    
-    notes.map(note => {
-        console.log("Pranay printing notes"+note.date);
-    })
-    // sortedNotes.map(note => {
-    //     console.log("Phani1 printing notes"+note.date);
-    // })
+
     const [filteredList, setFilterList] = useState(notes);
     
     const FilterTask = (title) => {
@@ -58,15 +45,9 @@ const Sidebar = ({notes,onAddNote,onDeleteNote,activeNote,setActiveNote,setTextD
   
   const [clicked,setClicked] = useState(false);
   const filterTag = (tag) => {
-    console.log("Mayank printing tag"+tag);
-    console.log("Mayank printing clicked"+clicked);
+   
     if(!clicked){
-      console.log("Mayank1 printing clicked"+clicked);
-      setClicked(true);
-      console.log("Mayank12 printing clicked"+clicked);
-      
-        
-         
+      setClicked(true);      
             const r = notes.filter((t) => {
               for(let i=0;i<t.tagData.length;i++){
               if(t.tagData[i].toLowerCase().includes(tag.toLowerCase())){
@@ -79,8 +60,7 @@ const Sidebar = ({notes,onAddNote,onDeleteNote,activeNote,setActiveNote,setTextD
             setNotes(r);  
         
   }
-  else if(clicked){
-    console.log("Mayank2 printing clicked"+clicked);
+  else if(clicked){   
     setClicked(false);
     axios.get('https://mern-clan.herokuapp.com/api/note').then((response) => {
       response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
@@ -91,18 +71,7 @@ const Sidebar = ({notes,onAddNote,onDeleteNote,activeNote,setActiveNote,setTextD
   }   
     return( 
     <div class="note-sidebar">
-       <Button notes={notes} filterTag={filterTag}></Button> 
-    
-    {/* {/* <div>
-{notes.map((note) => {
-        for(let i=0;i<note.tagData.length;i++){
-          console.log("Nhhu"+note.tagData[i]); 
-          (<button>{note.tagData[i].toString}</button>)
-        }
-      })}
-      </div>  */}
-      
-     
+       <Button notes={notes} filterTag={filterTag}></Button>       
         <div className = "note-sidebar-header">
         
             <h1>Notes</h1>

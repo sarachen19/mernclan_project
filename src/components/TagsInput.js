@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import '../components/TagsInput.css';
 
-
 const TagsInput = (props) => {
 const [tags,setTags] = useState([]);
 const addTags = event => {
@@ -25,14 +24,12 @@ if(props.activeNote.tagData){
     }
      
   }
-  console.log("Maharshi"+sam);
   const s = sam;
   sam = ""
   return s;
 }
   }
   
-
 const removeTags = index => {
     setTags([...tags.filter(tag => tags.indexOf(tag) !== index)]);
 }
@@ -58,7 +55,8 @@ return(
         onKeyUp={event => event.key === "Enter" ? addTags(event) : null}
         placeholder="Enter the tags"
        // value={props.activeNote.tagData[0]}    
-       value={valueUpdate()}
+       placeholder={valueUpdate()}
+       onChange={event => event.key === "Enter" ? addTags(event) : null}
       />
       </div>
     </div>
