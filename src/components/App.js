@@ -10,6 +10,7 @@ import Resume from './Resume';
 import EditJournal from '../components/journal/EditJournal';
 import DeleteJournal from '../components/journal/DeleteJournal';
 import NewJournal from '../components/journal/NewJournal';
+import Reminders from '../components/journal/Reminders';
 import NotFound from './notFound';
 import Task from './Task';
 import '../App.css';
@@ -61,9 +62,10 @@ function App() {
         <Route path="/resume" component={Resume}></Route>
         <Route exact path="/job-application" component={JobApplication}></Route>
         <Route path="/job-application/:id" component={AddEditJobApplications}></Route>
-        <Route path="/components/journal/EditJournal" component={EditJournal}></Route>
+        <Route path="/components/journal/EditJournal/:id" component={EditJournal}></Route>
         <Route path="/components/journal/DeleteJournal" component={DeleteJournal}></Route>
         <Route path="/components/journal/NewJournal" component={NewJournal}></Route>
+        <Route path="/components/journal/Reminders" component={Reminders}></Route>
         <Route path="/not-found" component={NotFound}></Route>
         <Redirect from="/" to="/home" />
         <Redirect to="/not-found" />
