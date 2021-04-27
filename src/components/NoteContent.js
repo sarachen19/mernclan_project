@@ -69,14 +69,18 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
         }
         if(data.description == ""){
           data.description = activeNote.description;
-        }       
+        }
+        try{
           const response =  await axios.put(      
-          'https://mern-clan.herokuapp.com/api/note',
-         
-          data,
-          config     
-        );
-         
+            'https://mern-clan.herokuapp.com/api/note',          
+            data,
+            config     
+          );
+        } 
+        catch (e) {
+          alert(e.response.data);
+           console.log('error ', e.response);
+         }             
       }
       else{
         if(data.description == ""){

@@ -43,11 +43,11 @@ const Note = () => {
     setNotes([newNote,...notes]);
     //setTest([newNote,...test]);
   }
-   
   const onDeleteNote = async (noteId) => {
     console.log("Sandeep12 printing id"+ noteId);
     //setNotes(notes.filter((eachNote) => eachNote.id!== note.id ));
     let token = sessionStorage.getItem('token');
+   
         console.log("Sandeep printing"+ token);
         let config = {
           headers: {
@@ -67,8 +67,11 @@ const Note = () => {
             config
           );
           console.log(response);
+         
         } catch (e) {
-          console.log('error ', e);
+         alert(e.response.data);
+          console.log('error ', e.response);
+
         }
         axios.get('https://mern-clan.herokuapp.com/api/note').then((response) => {
           response.data.sort((a, b) => new Date(a) < new Date(b) ? 1 : -1);
