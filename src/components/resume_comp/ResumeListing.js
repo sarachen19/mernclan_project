@@ -92,7 +92,7 @@ const [isResumeListLoad, setIsResumeListLoad] = useState(false);
   
   
   if (errorResumeList) return <div className="alert alert-danger">Error: {errorResumeList}</div>;
-  if (count === 0) return <span>There are no resumes in the database</span>;
+  if (count === 0) return <span>There are no resumes in the profile</span>;
 
   const sorted = _.orderBy(resumelist,[path],[order])
  
