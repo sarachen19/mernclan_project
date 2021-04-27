@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { API_Types_Enum, backendURL } from './DataConstants';
 
+// Reusable API service for auth as well as non-auth routes.
 const apiService = (callURL, apiData, apiType, successCallBack, failCallBack) => {
     switch (apiType) {
         case API_Types_Enum.get:

@@ -1,5 +1,7 @@
+// In case we want to change the backend urls ever, change would be contained in one file only
 //Constants 
 
+// Enum for supported API call types, REST.
 const API_Types_Enum = Object.freeze({
     "get": 1,
     "get_with_auth": 2,
@@ -10,6 +12,7 @@ const API_Types_Enum = Object.freeze({
     "delete": 7,
     "delete_with_auth": 8
 });
+//API server URL(s)
 const backendURL = "https://mern-clan.herokuapp.com";
 const apiCallURLS = Object.freeze({
     "authentication": "/api/auth",

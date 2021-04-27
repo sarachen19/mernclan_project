@@ -9,10 +9,12 @@ import apiService from './apiService';
 const RenderLineItem = (item, index, viewURL, tableHeaders, deleteURL) => {
 
     let history = useHistory();
+    // rest to remove _id and compress item object into itemViewData
     let { _id, ...itemViewData } = item;
     let viewData = {};
     Object.keys(itemViewData).map(key => {
         tableHeaders.map(heads => {
+            // Render only those columns whose key is present in tableHeaders object
             if (heads[key])
                 viewData[key] = itemViewData[key];
         })
@@ -44,11 +46,11 @@ const RenderLineItem = (item, index, viewURL, tableHeaders, deleteURL) => {
     )
 }
 
+// Generic table view component - 
+// addEditApplicationUrl - line item click's dynamic navigation based on route url id.
+// tableHeaders - Choose which columns from the incoming data to show, value denotes column heading display
+// deleteURL - API url to call for deleting the line item
 const TableView = (props) => {
-    const [search, setSearch] = useState('');
-    const filterData = () => {
-        props.datalist.filter((item) => !item);
-    }
     let history = useHistory();
     return (
         <React.Fragment>
@@ -57,15 +59,6 @@ const TableView = (props) => {
                     Add
                 </Button> : null
             }
-            <Form.Control
-                autoFocus
-                type="searchTable"
-                value={search}
-                onChange={(e) => { 
-                    filterData(); 
-                    setSearch(e.target.value);
-                 }}
-            />
             <Table className="sortable" condensed hover>
                 <thead>
                     <tr>

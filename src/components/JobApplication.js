@@ -3,9 +3,12 @@ import TableView from './TableView';
 import apiService from './apiService';
 import { apiCallURLS, API_Types_Enum } from "./DataConstants";
 
+// Show all the job applications done, also plan for future job applications
 const JobApplication = () => {
-    const [files, setFiles] = useState([]);
+    // Array of job applications
     const [jobApplications, setApplications] = useState([]);
+    // Table header json object for the generic table component.
+    // *Key also used for choosing which columns to show from incoming data
     const tableHeaders = [{ organization: "Organization Name" }, { transformedDate: "Date Of Application" }];
 
     useEffect(() => {
@@ -23,7 +26,7 @@ const JobApplication = () => {
     }, []);
     return (
         <React.Fragment>
-            <h4>Previous Job Applications</h4>
+            <h4>Job Applications Planner</h4>
             <TableView datalist={jobApplications} tableHeaders={tableHeaders} addEditApplicationUrl={'/job-application/'}
                 deleteURL={apiCallURLS.jobApplications} />
         </React.Fragment>

@@ -25,6 +25,7 @@ import AuthContext from '../contexts/AuthContext';
 import firebase from 'firebase';
 
 function App() {
+  // Initialize firebase bucket storage : initialization at root component to ensure global usability
   if (!firebase.apps.length) {
     var firebaseConfig = {
       apiKey: "AIzaSyChiUN39T4W8F-JO8-FfNvEYyItYdmixuE",

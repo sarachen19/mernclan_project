@@ -11,6 +11,7 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState();
   const history = useHistory();
   const auth = useContext(AuthContext);
 
@@ -28,9 +29,9 @@ const Login = () => {
       (response) => {
         sessionStorage.setItem("token", response.data['token']);
         auth.login();
-        history.push('/cars');
+        history.push('/home');
       },
-      (err) => console.log(err));
+      (err) => { setError(err.response.data.errors[0].mag) });
     event.preventDefault();
   }
 
@@ -58,6 +59,7 @@ const Login = () => {
           Login
         </Button>
       </Form>
+      {error && <div className="alert alert-danger regLabel">{error}</div>}
     </div>
   );
 }

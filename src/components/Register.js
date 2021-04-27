@@ -80,7 +80,6 @@ const Register = () => {
         <Form.Group size="lg" controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
-            autoFocus
             type="email"
             name='email'
             onChange={formik.handleChange}
