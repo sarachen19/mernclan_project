@@ -72,7 +72,7 @@ Delete</button>
         <FormControl
          name="endate" defaultValue={journal.date} 
         required/></FormGroup>
-<button type="submit" class="btn btn-success">Save</button>
+<button type="button" class="btn btn-success">Save</button>
 </Form>
 
 
