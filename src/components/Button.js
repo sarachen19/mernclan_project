@@ -23,9 +23,7 @@ const Button = (props) => {
       console.log("Huhu"+note.title);
       for(let i=0;i<note.tagData.length;i++){
         if(note.tagData[i] != null){
-          if(array.filter((value, id, array) => {
-            return (array.value == note.tagData[i]);
-          }))
+        
           {
             array.push(
               // <div id="parentDiv">

@@ -30,14 +30,19 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
       [key] :  value,
      
       date:Date.now(),
-      tagData:selectedTags,
+     // tagData:selectedTags,
     })
     setFormData({ ...formData,[key] : value});
   };
-
+  const [check,setCheck] = useState(false);
   const selectedTags = tags =>{
-    console.log("Jubs"+tags);
-    setTag(tags);
+  
+    
+      console.log("Jubs"+tags);
+      setTag(tags);
+      setCheck(true);
+    
+    
   } 
   
   const OnSubmit2 = async (e) => {
@@ -57,9 +62,14 @@ const NoteContent = ({ activeNote, onEditNote, test, textDisabled, setActiveNote
       title: title,
       description: description,
       date:Date.now(),
-      tags:tag,
+      tags:[],
      
     };
+    console.log("chiru"+check);
+    if(check == true){
+      data.tags = tag;
+      setCheck(false);
+    }
      
     console.log("Huma"+tag);
     var res;
